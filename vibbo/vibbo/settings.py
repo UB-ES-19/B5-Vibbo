@@ -31,7 +31,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    'vibbo.app.VibboConfig'
+    'vibbo.app.VibboappConfig'
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
