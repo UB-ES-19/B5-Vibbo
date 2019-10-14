@@ -6,6 +6,10 @@
 {% block content %}
 {% if user.is_authenticated %}
   Hi {{ user.username }}!
+  <p> You occupation is {{user.profile.occupation}} </p>
+  <p> You bio is {{user.profile.bio}} </p>
+  <p> You location is {{user.profile.location}} </p>
+  <p><a href="{% url 'change' %}">change profile</a></p>
     <p><a href="{% url 'logout' %}">logout</a></p>
 {% else %}
   <p>You are not logged in</p>
