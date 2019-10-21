@@ -24,6 +24,13 @@ class ChangeProfileView(FormView):
     form_class = ProfileForm
     # success_url = reverse_lazy('')
 
+    def get_initial(self):
+        return {
+            'occupation': self.request.user.profile.occupation,
+            'bio': self.request.user.profile.bio,
+            'location': self.request.user.profile.location
+        }
+
     def get_queryset(self):
         return Profile.objects.get(user=self.request.user)
 

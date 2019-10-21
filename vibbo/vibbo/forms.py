@@ -3,6 +3,7 @@ from django import forms
 
 
 class ProfileForm(forms.ModelForm):
+
     occupation = forms.CharField()
     bio = forms.CharField()
     location = forms.CharField()
