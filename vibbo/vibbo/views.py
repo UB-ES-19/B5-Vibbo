@@ -2,9 +2,9 @@ from django.shortcuts import render
 from django.views.generic import DetailView, FormView
 from django.db import models
 from .models import Profile
-from .forms import RegisterForm
+from .forms import ProfileForm
 from django.contrib.auth.models import User
-from django.http import HttpResponse
+from django.http import HttpResponseRedirect
 
 # Create your views here.
 # accounts/views.py
@@ -19,9 +19,9 @@ class SignUp(generic.CreateView):
     template_name = 'signup.html'
 
 
-class CreateProfileView(FormView):
+class ChangeProfileView(FormView):
     template_name = 'vibbo/profile_change.html'
-    form_class = RegisterForm
+    form_class = ProfileForm
     # success_url = reverse_lazy('')
 
     def get_queryset(self):
@@ -36,7 +36,8 @@ class CreateProfileView(FormView):
         profile.bio = data['bio']
         profile.save()
 
-        return HttpResponse('ok')
+        # return HttpResponse('ok')
+        return HttpResponseRedirect("/")
 
 
 class DisplayDetailView(DetailView):
