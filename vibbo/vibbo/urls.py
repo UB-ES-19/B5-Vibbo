@@ -17,6 +17,12 @@ from django.conf.urls import url
 from django.contrib import admin
 
 urlpatterns = [
+<<<<<<< Updated upstream
     url(r'^vibbo/', include('vibbo.urls')),
     url(r'^admin/', admin.site.urls),
 ]
+=======
+    path('signup/', views.SignUp.as_view(), name='signup'),
+    #path('home/', views.Home.as_view(), name='home'),
+]
+>>>>>>> Stashed changes
