@@ -12,6 +12,14 @@
 	<p>&nbsp;</p>
   {% csrf_token %}
   {{ form.as_p }}
-  <button type="button" class="btn btn-secondary" href="{% url 'login' %}">Log in</button>
+   <button type="submit">Login</button>
 </form>
+
+<h2>Not registered ? </h2>
+<button id="signupButton" class="btn btn-secondary" >Sign up now</button>
+<script type="text/javascript">
+    document.getElementById("signupButton").onclick = function () {
+        location.href = "{% url 'signup' %}";
+    };
+</script>
 {% endblock %}

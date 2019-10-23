@@ -46,13 +46,21 @@
           </li>
           <li>
             {% if user.is_authenticated %}
-              <button type="button" class="btn btn-secondary" href="#">
-                {{ user.username }} 's profile
+              <button type="userButton" class="btn btn-secondary" >
+                {{ user.username }}'s profile
               </button>
+              <script type="text/javascript">
+                  document.getElementById("userButton").onclick = function () {
+                      location.href = "{% url 'profile' %}";
+                  };
+              </script>
             {% else %}
-            <button type="button" class="btn btn-secondary" href="{% url 'login' %}">
-                Log in
-              </button>
+              <button id="loginButton" class="btn btn-secondary" >Log in</button>
+              <script type="text/javascript">
+                  document.getElementById("loginButton").onclick = function () {
+                      location.href = "{% url 'login' %}";
+                  };
+              </script>
             {% endif %}
           </li>
         </ul>
