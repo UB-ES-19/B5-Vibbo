@@ -44,8 +44,9 @@ class ChangeProfileView(FormView):
         profile.save()
 
         # return HttpResponse('ok')
-        return HttpResponseRedirect("/")
+        return HttpResponseRedirect(f"/vibbo/profile/{self.request.user.profile.pk}/")
 
 
 class DisplayDetailView(DetailView):
+    template_name = "profile.html"
     model = Profile

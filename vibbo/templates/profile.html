@@ -6,13 +6,14 @@
 {% block content %}
 {% if user.is_authenticated %}
   Hi {{ user.username }}!
-  <p><a href="{% url 'profile' pk=user.profile.pk %}">Access profile</a></p>
-    <p><a href="{% url 'logout' %}">logout</a></p>
+  <p> You occupation is {{user.profile.occupation}} </p>
+  <p> You bio is {{user.profile.bio}} </p>
+  <p> You location is {{user.profile.location}} </p>
+  <p><a href="{% url 'change' %}">Change profile</a> </p>
+  <p><a href="{% url 'home' %}">Back home</a></p>
 {% else %}
   <p>You are not logged in</p>
-  <a href="{% url 'login' %}">login</a>
-  <p></p>
-  <a href="{% url 'signup' %}"> sign up</a>
+  <a href="{% url 'home' %}">back to home page</a>
 {% endif %}
 {% endblock %}
 
