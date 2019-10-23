@@ -46,14 +46,15 @@
           </li>
           <li>
             {% if user.is_authenticated %}
-              <button type="userButton" class="btn btn-secondary" >
+              <li class="nav-item dropdown dmenu">
+              <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
                 {{ user.username }}'s profile
-              </button>
-              <script type="text/javascript">
-                  document.getElementById("userButton").onclick = function () {
-                      location.href = "{% url 'profile' %}";
-                  };
-              </script>
+              </a>
+              <div class="dropdown-menu sm-menu">
+                <a class="dropdown-item" href="{% url 'profile' %}">My informations</a>
+                <a class="dropdown-item" href="{% url 'logout' %}">Log out</a>
+              </div>
+              </li>
             {% else %}
               <button id="loginButton" class="btn btn-secondary" >Log in</button>
               <script type="text/javascript">
@@ -63,6 +64,7 @@
               </script>
             {% endif %}
           </li>
+
         </ul>
       </div>
     </div>
