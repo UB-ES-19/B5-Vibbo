@@ -488,6 +488,17 @@ mark,
 .img-logo {
     width : 5%;
 }
+
+background-secondary{
+    background-color: #4527a0;
+}
+
+.footer {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+}
 /*END OF ALEXIS ADDINGS*/
 
 .img-thumbnail {

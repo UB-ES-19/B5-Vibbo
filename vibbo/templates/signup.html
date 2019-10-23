@@ -5,12 +5,21 @@
 
 {% block content %}
   
-  <form method="post">
+<form method="post">
   	<p>&nbsp;</p>
-  	<h2>Sign up</h2>
+  	<h2 class="text-center">Sign up form</h2>
   	<p>&nbsp;</p>
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Sign up</button>
-  </form>
+<div style="text-align: center;">
+    <div style="display: inline-block; text-align: left;">
+        {% csrf_token %}
+	    {{ form.as_p }}
+	</div>
+</div>
+<div style="text-align: center;">
+	<button type="submit" class="btn btn-secondary" >Sign Up</button>
+</div>
+</form>
+
+
+
 {% endblock %}

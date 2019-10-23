@@ -50,7 +50,7 @@
               <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
                 {{ user.username }}'s profile
               </a>
-              <div class="dropdown-menu sm-menu">
+              <div class="dropdown-menu sm-menu ">
                 <a class="dropdown-item" href="{% url 'profile' %}">My informations</a>
                 <a class="dropdown-item" href="{% url 'logout' %}">Log out</a>
               </div>
@@ -77,7 +77,7 @@
   </main>
 
 <!-- Footer -->
-  <footer class="py-5 bg-dark">
+  <footer id="footer" class="footer py-5 bg-dark nav">
     <div class="container">
       <p class="m-0 text-center text-black">Copyright &copy; Golden Trash Can - ES Project - Universitat de Barcelona, 2019-2020</p>
     </div>
