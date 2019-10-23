@@ -48,5 +48,5 @@ class ChangeProfileView(FormView):
 
 
 class DisplayDetailView(DetailView):
-    template_name = "profile.html"
+    template_name = "vibbo/profile_page.html"
     model = Profile
