@@ -22,13 +22,17 @@ class SignUp(generic.CreateView):
 class ChangeProfileView(FormView):
     template_name = 'vibbo/profile_change.html'
     form_class = ProfileForm
-    # success_url = reverse_lazy('')
 
     def get_initial(self):
         return {
-            'occupation': self.request.user.profile.occupation,
+            'first_name': self.request.user.profile.first_name,
+            'last_name': self.request.user.profile.last_name,
+
             'bio': self.request.user.profile.bio,
-            'location': self.request.user.profile.location
+
+            'street': self.request.user.profile.street,
+            'city': self.request.user.profile.city,
+            'location_code': self.request.user.profile.location_code
         }
 
     def get_queryset(self):
@@ -38,9 +42,16 @@ class ChangeProfileView(FormView):
 
         data = form.cleaned_data
         profile = self.get_queryset()
-        profile.occupation = data['occupation']
-        profile.location = data['location']
+
+        profile.first_name = data['first_name']
+        profile.last_name = data['last_name']
+
         profile.bio = data['bio']
+
+        profile.street = data['street']
+        profile.city = data['city']
+        profile.location_code = data['location_code']
+
         profile.save()
 
         # return HttpResponse('ok')

@@ -8,9 +8,15 @@ from django.db.models.signals import post_save
 
 class Profile(models.Model):
     user = models.OneToOneField(User, related_name='profile', on_delete=models.CASCADE)
-    occupation = models.CharField(max_length=500, blank=True)
-    bio = models.TextField(max_length=500, blank=True)
-    location = models.CharField(max_length=30, blank=True)
+    first_name = models.CharField(max_length=50, blank=True)
+    last_name = models.CharField(max_length=50, blank=True)
+
+    bio = models.CharField(max_length=500, blank=True)
+
+    street = models.CharField(max_length=30, blank=True)
+    city = models.CharField(max_length=30, blank=True)
+    location_code = models.fields.IntegerField(blank=True, default=0)
+
     objects = models.Manager()
 
 

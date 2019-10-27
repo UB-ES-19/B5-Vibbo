@@ -6,9 +6,9 @@
 {% block content %}
 {% if user.is_authenticated %}
   Hi {{ user.username }}!
-  <p> You occupation is {{user.profile.occupation}} </p>
-  <p> You bio is {{user.profile.bio}} </p>
-  <p> You location is {{user.profile.location}} </p>
+  <p> You name is {{user.profile.first_name}} {{user.profile.last_name}} </p>
+<p> You bio is: </p><p> {{user.profile.bio}} </p>
+<p> You location is: </p> <p> {{user.profile.street}} {{user.profile.city}} {{user.profile.location_code}} </p>
   <p><a href="{% url 'change' %}">Change profile</a> </p>
   <p><a href="{% url 'home' %}">Back home</a></p>
 {% else %}
