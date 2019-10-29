@@ -51,7 +51,7 @@
                 {{ user.username }}'s profile
               </a>
               <div class="dropdown-menu sm-menu ">
-                <a class="dropdown-item" href="{% url 'profile' %}">My informations</a>
+                <a class="dropdown-item" href="{% url 'profile' pk=user.profile.pk %}">My informations</a>
                 <a class="dropdown-item" href="{% url 'logout' %}">Log out</a>
               </div>
               </li>
