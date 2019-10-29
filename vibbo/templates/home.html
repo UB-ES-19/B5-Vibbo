@@ -4,6 +4,7 @@
 {% block title %}Home{% endblock %}
 
 {% block content %}
+<p class="text-center">Work in construction ...</p>
 {% if user.is_authenticated %}
   Hi {{ user.username }}!
   <p><a href="{% url 'profile' pk=user.profile.pk %}">Access profile</a></p>
@@ -18,4 +19,4 @@
 
 <br/>
 <br/>
-<footer> Here add all the Privacy/Copyright etc.. informations </footer>
+
