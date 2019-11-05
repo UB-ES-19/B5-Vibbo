@@ -61,3 +61,31 @@ class ChangeProfileView(FormView):
 class DisplayDetailView(DetailView):
     template_name = "vibbo/profile_page.html"
     model = Profile
+
+
+def allUsers(request, pk = None):
+    users = User.objects.all()
+    template_name = "vibbo/allUsers.html"
+
+    first_names = []
+    name_user_searched = ""
+
+    for user in users:
+        first_names.append(user.username)
+
+    if pk is None:
+        context = {
+            'users': first_names,
+        }
+    else:
+        for name in first_names:
+            if name == pk:
+                name_user_searched = name
+        context = {
+            'users': first_names,
+            'user_searched': name_user_searched,
+        }
+
+    return render(request, template_name, context)
+
+

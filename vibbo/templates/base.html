@@ -28,6 +28,26 @@
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
+
+    <div style="text-align: center">
+    <br>
+    <input type="text" id="username" >
+    <button id="searchusers" class="btn btn-secondary" >Search users</button>
+      <script type="text/javascript">
+          document.getElementById("searchusers").onclick = function () {
+              if (document.getElementById('username').value == ""){
+                    console.log("hola");
+                    location.href = "{% url 'allusers' %}";
+              } else {
+                    var name = document.getElementById('username').value;
+                    console.log("NAME: ", name);
+                    location.href = "{% url 'allusers_user' pk=12345 %}".replace(/12345/, name.toString());
+              }
+          };
+      </script>
+
+    </div>
+
       <div class="collapse navbar-collapse" id="navbarResponsive">
         <ul class="navbar-nav ml-auto">
           <li class="nav-item active">
