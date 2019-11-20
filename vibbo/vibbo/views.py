@@ -132,7 +132,6 @@ def all_posts(request):
         'user': request.user,
         'posts': posts
     }
-    print(posts)
 
     return render(request, template_name, context)
 

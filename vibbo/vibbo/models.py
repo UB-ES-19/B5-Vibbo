@@ -3,6 +3,8 @@ from django.contrib.auth.models import User
 from django.dispatch import receiver
 from django.db.models.signals import post_save
 
+
+import datetime
 # Create your models here.
 
 
@@ -32,12 +34,12 @@ class Post(models.Model):
     title = models.CharField(max_length=255, blank=True)
     body = models.CharField(max_length=1023, blank=True)
 
-    date = models.DateField()
+    date = models.DateField(default=datetime.datetime.now())
 
     objects = models.Manager()
 
     class Meta:
-        ordering = ['date']
+        ordering = ['-date']
 
 
 @receiver(post_save, sender=User)
