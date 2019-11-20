@@ -22,3 +22,15 @@ class ProfileForm(forms.ModelForm):
             'city',
             'location_code'
         )
+
+
+class PostForm(forms.ModelForm):
+    title = forms.CharField()
+    body = forms.CharField()
+
+    class Meta:
+        model = User
+        fields = (
+            'title',
+            'body'
+        )

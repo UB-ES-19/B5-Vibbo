@@ -8,12 +8,23 @@
 {% if user.is_authenticated %}
   Hi {{ user.username }}!
   <p><a href="{% url 'profile' pk=user.profile.pk %}">Access profile</a></p>
+  <p><a href="{% url 'newpost' %}">New post</a></p>
+
     <p><a href="{% url 'logout' %}">logout</a></p>
+
         <button id="search" class="btn btn-secondary" >Search users</button>
               <script type="text/javascript">
                   document.getElementById("search").onclick = function () {
                       console.log("HOLA");
                       location.href = "{% url 'allusers' %}";
+                  };
+              </script>
+
+        <button id="all_posts_button" class="btn btn-secondary" >View all posts</button>
+              <script type="text/javascript">
+                  document.getElementById("all_posts_button").onclick = function () {
+                      console.log("HOLA, my friendos");
+                      location.href = "{% url 'all_posts' %}";
                   };
               </script>
 {% else %}

@@ -1,22 +1,52 @@
 from django.shortcuts import render
 from django.views.generic import DetailView, FormView
 from django.db import models
-from .models import Profile
-from .forms import ProfileForm
+from .models import Profile, Post
+from .forms import ProfileForm, PostForm
 from django.contrib.auth.models import User
 from django.http import HttpResponseRedirect
 
+import time
 # Create your views here.
 # accounts/views.py
 from django.contrib.auth.forms import UserCreationForm
 from django.urls import reverse_lazy
 from django.views import generic
 
+import datetime
+
 
 class SignUp(generic.CreateView):
     form_class = UserCreationForm
     success_url = reverse_lazy('login')
     template_name = 'signup.html'
+
+
+class PostSubmission(FormView):
+    template_name = "vibbo/post_submit.html"
+    form_class = PostForm
+
+    def get_initial(self):
+        return {
+            'title': "",
+            'body': ""
+        }
+
+    def get_queryset(self):
+        return Post(user=self.request.user)
+
+    def form_valid(self, form):
+        data = form.cleaned_data
+        post = self.get_queryset()
+
+        post.title = data['title']
+        post.body = data['body']
+
+        post.date = datetime.datetime.now()
+
+        post.save()
+        print(post)
+        return HttpResponseRedirect(f"/vibbo/post/{post.pk}/")
 
 
 class ChangeProfileView(FormView):
@@ -63,7 +93,12 @@ class DisplayDetailView(DetailView):
     model = Profile
 
 
-def allUsers(request, pk = None):
+class PostView(DetailView):
+    template_name = "vibbo/post_page.html"
+    model = Post
+
+
+def allUsers(request, pk=None):
     users = User.objects.all()
     template_name = "vibbo/allUsers.html"
 
@@ -87,5 +122,19 @@ def allUsers(request, pk = None):
         }
 
     return render(request, template_name, context)
+
+
+def all_posts(request):
+    posts = Post.objects.filter(user=request.user).order_by('-date')
+    template_name = 'vibbo/all_posts.html'
+
+    context = {
+        'user': request.user,
+        'posts': posts
+    }
+    print(posts)
+
+    return render(request, template_name, context)
+
 
 

@@ -24,3 +24,24 @@ class Profile(models.Model):
 def profile_for_new_user(sender, instance, created, **kwargs):
     if created:
         Profile.objects.create(user=instance).save()
+
+
+class Post(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+
+    title = models.CharField(max_length=255, blank=True)
+    body = models.CharField(max_length=1023, blank=True)
+
+    date = models.DateField()
+
+    objects = models.Manager()
+
+    class Meta:
+        ordering = ['date']
+
+
+@receiver(post_save, sender=User)
+def new_post_for_user(sender, instance, created, **kwargs):
+    if created:
+        Post.objects.create(user=instance).save()
+

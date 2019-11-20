@@ -1,7 +1,8 @@
 # accounts/urls.py
 from django.urls import path, re_path
-from .views import ChangeProfileView, DisplayDetailView
+from .views import ChangeProfileView, DisplayDetailView, PostSubmission, PostView
 from . import views
+from .models import Post
 
 
 urlpatterns = [
@@ -11,4 +12,7 @@ urlpatterns = [
     path('home/allusers', views.allUsers, name='allusers'),
     path('home/allusers/<str:pk>/', views.allUsers, name='allusers_user'),
     path('change/', ChangeProfileView.as_view(), name='change'),
+    path('newpost/', PostSubmission.as_view(), name="newpost"),
+    path('profile/posts', views.all_posts, name="all_posts"),
+    path(r'post/<str:pk>/', PostView.as_view(model=Post), name="post_view")
 ]
