@@ -6,21 +6,26 @@
 {% block content %}
 
     {% if user %}
-        <h1 style="text-align: center; margin-top: 30px">User Searched</h1>
-        <p style="text-align: center" >{{ user }}'s posts</p>
+        <h1 style="text-align: center; margin-top: 30px">{{ user }}'s posts</h1>
 <!--        <h1 style="text-align: center">All Users</h1>-->
      {% for post in posts %}
-         <p style="text-align: center">{{ post }}</p>
+<!--         <p style="text-align: center">{{ post }}</p>-->
          <p style="text-align: center">{{ post.date }}</p>
-         <p style="text-align: center">{{ post.title }}</p>
-         <p style="text-align: center">{{ post.body }}</p>
+         <p style="text-align: center">Title: {{ post.title }}</p>
+         <p style="text-align: center">Body: {{ post.body }}</p>
+         <p style="text-align: center"><a href="{% url 'post_view' pk=post.pk %}">Post detail</a></p>
          <p>.</p>
-
      {% endfor %}
 
 {% else %}
     <p>No posts are available.</p>
 {% endif %}
+        <button id="home_button1" class="btn btn-secondary" >Home</button>
+              <script type="text/javascript">
+                  document.getElementById("home_button1").onclick = function () {
+                      location.href = "{% url 'home' %}";
+                  };
+              </script>
 {% endblock %}
 
 <br/>

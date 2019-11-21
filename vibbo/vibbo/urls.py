@@ -13,6 +13,7 @@ urlpatterns = [
     path('home/allusers/<str:pk>/', views.allUsers, name='allusers_user'),
     path('change/', ChangeProfileView.as_view(), name='change'),
     path('newpost/', PostSubmission.as_view(), name="newpost"),
+    path('editpost/<str:pk>', PostSubmission.as_view(), name="editpost"),
     path('profile/posts', views.all_posts, name="all_posts"),
     path(r'post/<str:pk>/', PostView.as_view(model=Post), name="post_view")
 ]

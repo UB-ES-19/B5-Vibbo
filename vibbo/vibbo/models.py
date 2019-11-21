@@ -40,10 +40,3 @@ class Post(models.Model):
 
     class Meta:
         ordering = ['-date']
-
-
-@receiver(post_save, sender=User)
-def new_post_for_user(sender, instance, created, **kwargs):
-    if created:
-        Post.objects.create(user=instance).save()
-
