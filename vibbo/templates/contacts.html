@@ -4,35 +4,15 @@
 {% block title %}Contact Page{% endblock %}
 
 {% block content %}
-<p class="text-center">Work in construction ...</p>
-{% if user.is_authenticated %}
-  Hi {{ user.username }}!
-  <p><a href="{% url 'profile' pk=user.profile.pk %}">Access profile</a></p>
-  <p><a href="{% url 'newpost' %}">New post</a></p>
-
-    <p><a href="{% url 'logout' %}">logout</a></p>
-
-        <button id="search" class="btn btn-secondary" >Search users</button>
-              <script type="text/javascript">
-                  document.getElementById("search").onclick = function () {
-                      console.log("HOLA");
-                      location.href = "{% url 'allusers' %}";
-                  };
-              </script>
-
-        <button id="all_posts_button" class="btn btn-secondary" >View all posts</button>
-              <script type="text/javascript">
-                  document.getElementById("all_posts_button").onclick = function () {
-                      console.log("HOLA, my friendos");
-                      location.href = "{% url 'all_posts' %}";
-                  };
-              </script>
-{% else %}
-  <p>CONTACT PAGEEE</p>
-  <a href="{% url 'login' %}">login</a>
-  <p></p>
-  <a href="{% url 'signup' %}"> sign up</a>
-{% endif %}
+    <p></p>
+    <h1 class="text-center">Contacs</h1>
+    <ul>
+        <li>Marc</li>
+        <li>Joan</li>
+        <li>Alex</li>
+        <li>Lukas</li>
+        <li>Paolo</li>
+    </ul>
 {% endblock %}
 
 <br/>
