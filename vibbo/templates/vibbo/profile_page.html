@@ -26,7 +26,7 @@
 }
 
 #pRight{
-	 padding-left: 150px;
+	 padding-left: 70px;
 }
 
 .stats, .statsTr, .statsTh{
@@ -34,14 +34,16 @@
 
 .statsTr, .statsTh{
 	font-weight: normal;
+	padding-right: 80px;
   	text-align: left;
 }
 
 </style>
 
-<dov id="container">
+
+<dov id="container">	
 	<div id="pLeft">
-		<p> [Profile Picture] </p>
+		<img src="/static/images/defaultProfile.jpg" alt="Default Profile Picture" style="width:15%">
 		<p> {{user.profile.first_name}} {{user.profile.last_name}} </p>
 		<p> From [sign up date] </p>
 
@@ -78,7 +80,7 @@
 
 			</tr>
 		</table>
-		<p> You have nothing for sale </p>
+		<p style="padding-top: 50px; padding-left: 200px;"> You have nothing for sale </p>
 
 <!--
 	<p> You bio is: </p><p> {{user.profile.bio}} </p>
