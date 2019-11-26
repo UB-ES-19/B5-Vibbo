@@ -5,12 +5,90 @@
 
 {% block content %}
 {% if user.is_authenticated %}
-  Hi {{ user.username }}!
-  <p> You name is {{user.profile.first_name}} {{user.profile.last_name}} </p>
-<p> You bio is: </p><p> {{user.profile.bio}} </p>
-<p> You location is: </p> <p> {{user.profile.street}} {{user.profile.city}} {{user.profile.location_code}} </p>
-  <p><a href="{% url 'change' %}">Change profile</a> </p>
-  <p><a href="{% url 'home' %}">Back home</a></p>
+<style>
+#container{
+	padding-top: 50px;
+	display: flex;
+}
+
+#pLeft{
+	 padding-left: 50px;
+}
+
+.linksTable, .linksTr, .linksTh {
+  border: 1px solid gray;
+  border-collapse: collapse;
+}
+.linksTr, .linksTh {
+  padding: 10px;
+  text-align: left;
+  font-weight: normal;
+}
+
+#pRight{
+	 padding-left: 150px;
+}
+
+.stats, .statsTr, .statsTh{
+}
+
+.statsTr, .statsTh{
+	font-weight: normal;
+  	text-align: left;
+}
+
+</style>
+
+<dov id="container">
+	<div id="pLeft">
+		<p> [Profile Picture] </p>
+		<p> {{user.profile.first_name}} {{user.profile.last_name}} </p>
+		<p> From [sign up date] </p>
+
+		<table style="width:100%" class="linksTable">
+			<tr class="linksTr">
+				<th class="linksTh">Messages</th>
+			</tr>
+			<tr class="linksTr">
+				<th class="linksTh">Favs</th>
+			</tr>
+			<tr class="linksTr">
+				<th class="linksTh"><a href="{% url 'change' %}">Edit profile</a></th>
+			</tr>
+		</table>
+
+	</div>
+
+	<div id="pRight">
+		<table style="width:100%" class="stats">
+			<tr class="statsTr">
+				<th class="statsTh">For sale</th>
+				<th class="statsTh">Sold</th>
+				<th class="statsTh">Ratings</th>
+				<th class="statsTh">Following</th>
+				<th class="statsTh">Followers</th>
+
+			</tr>
+			<tr class="statsTr">
+				<th class="statsTh">[0]</th>
+				<th class="statsTh">[0]</th>
+				<th class="statsTh">[0]</th>
+				<th class="statsTh">[0]</th>
+				<th class="statsTh">[0]</th>
+
+			</tr>
+		</table>
+		<p> You have nothing for sale </p>
+
+<!--
+	<p> You bio is: </p><p> {{user.profile.bio}} </p>
+		<p> You location is: </p> <p> {{user.profile.street}} {{user.profile.city}} {{user.profile.location_code}} </p>
+		<p><a href="{% url 'home' %}">Back home</a></p>
+-->
+	
+	</div>
+</div>
+
 {% else %}
   <p>You are not logged in</p>
   <a href="{% url 'home' %}">back to home page</a>
