@@ -9,6 +9,7 @@
 #container{
 	padding-top: 50px;
 	display: flex;
+	color: #5c5c5c;
 }
 
 #pLeft{
@@ -16,10 +17,11 @@
 }
 
 .linksTable, .linksTr, .linksTh {
-  border: 1px solid gray;
+  border: 1px solid #d1d1d1;
   border-collapse: collapse;
 }
 .linksTr, .linksTh {
+	color: #00819e;
   padding: 10px;
   text-align: left;
   font-weight: normal;
@@ -38,14 +40,21 @@
   	text-align: left;
 }
 
+#leftUp{
+	color: #303030;
+	text-align: center;
+}
+
 </style>
 
 
 <dov id="container">	
 	<div id="pLeft">
-		<img src="/static/images/defaultProfile.jpg" alt="Default Profile Picture" style="width:15%">
-		<p> {{user.profile.first_name}} {{user.profile.last_name}} </p>
-		<p> From [sign up date] </p>
+		<div id="leftUp">
+			<img src="/static/images/defaultProfile.jpg" alt="Default Profile Picture" style="text-align: center;">
+			<p> {{user.profile.first_name}} {{user.profile.last_name}} </p>
+			<p style="font-size: 11px"> Since [sign up date] </p>
+		</div>
 
 		<table style="width:100%" class="linksTable">
 			<tr class="linksTr">
@@ -55,7 +64,7 @@
 				<th class="linksTh">Favs</th>
 			</tr>
 			<tr class="linksTr">
-				<th class="linksTh"><a href="{% url 'change' %}">Edit profile</a></th>
+				<th class="linksTh"><a href="{% url 'change' %}" style="color: #00819e;">Edit profile</a></th>
 			</tr>
 		</table>
 
@@ -72,11 +81,11 @@
 
 			</tr>
 			<tr class="statsTr">
-				<th class="statsTh">[0]</th>
-				<th class="statsTh">[0]</th>
-				<th class="statsTh">[0]</th>
-				<th class="statsTh">[0]</th>
-				<th class="statsTh">[0]</th>
+				<th class="statsTh" style="color: #ba8f02">[0]</th>
+				<th class="statsTh" style="color: #ba8f02">[0]</th>
+				<th class="statsTh" style="color: #ba8f02">[0]</th>
+				<th class="statsTh" style="color: #ba8f02">[0]</th>
+				<th class="statsTh" style="color: #ba8f02">[0]</th>
 
 			</tr>
 		</table>
