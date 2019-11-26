@@ -20,6 +20,7 @@ class Profile(models.Model):
     location_code = models.fields.IntegerField(blank=True, default=0)
 
     objects = models.Manager()
+    follows = models.ManyToManyField('Profile', related_name='followed_by', blank=True)
 
 
 @receiver(post_save, sender=User)

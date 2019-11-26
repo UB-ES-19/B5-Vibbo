@@ -15,5 +15,9 @@ urlpatterns = [
     path('newpost/', PostSubmission.as_view(), name="newpost"),
     path('editpost/<str:pk>', PostSubmission.as_view(), name="editpost"),
     path('profile/posts', views.all_posts, name="all_posts"),
-    path(r'post/<str:pk>/', PostView.as_view(model=Post), name="post_view")
+    path(r'post/<str:pk>/', PostView.as_view(model=Post), name="post_view"),
+    path(r'followuser/<int:id>', views.followUser, name="follow_user"),
+    path(r'unfollowuser/<int:id>', views.unfollowUser, name="unfollow_user"),
+    path('home/followingsposts', views.getAllMyFollowsPosts, name="all_followings_posts"),
+
 ]
