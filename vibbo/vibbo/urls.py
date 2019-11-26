@@ -17,4 +17,5 @@ urlpatterns = [
     path('profile/posts', views.all_posts, name="all_posts"),
     path(r'post/<str:pk>/', PostView.as_view(model=Post), name="post_view"),
     path('about/', TemplateView.as_view(template_name='about.html'), name="about"),
+    path('contacts/', TemplateView.as_view(template_name='contacts.html'), name="contacts"),
 ]
