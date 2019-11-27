@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.views.generic import DetailView, FormView
 from django.db import models
 from .models import Profile, Post
@@ -170,3 +170,31 @@ def delete_post(request, pk, **kwargs):
 
     return HttpResponseRedirect(f"../delete/success")
 
+
+def followUser(request, id):
+    from_user = get_object_or_404(User, id=id)
+    from_user.profile.follows.add(request.user.profile)
+    return HttpResponseRedirect(f"/vibbo/home/allusers")
+
+
+def unfollowUser(request, id):
+    from_user = get_object_or_404(User, id=id)
+    from_user.profile.follows.remove(request.user.profile)
+    return HttpResponseRedirect(f"/vibbo/home/allusers")
+
+
+def getAllMyFollowsPosts(request):
+    all_following_posts = Post.objects.filter(user=request.user)
+    template_name = 'vibbo/all_posts.html'
+
+    for following in request.user.profile.follows.all():
+        posts = Post.objects.filter(user=following).order_by('-date')
+        for post in posts:
+            all_following_posts.append(post)
+
+    context = {
+        'user': request.user,
+        'posts': all_following_posts
+    }
+
+    return render(request, template_name, context)
