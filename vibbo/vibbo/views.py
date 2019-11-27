@@ -49,6 +49,34 @@ class PostSubmission(FormView):
         return HttpResponseRedirect(f"/vibbo/post/{post.pk}/")
 
 
+class ChangePostView(FormView):
+    template_name = 'vibbo/post_submit.html'
+    form_class = PostForm
+
+    def get_initial(self):
+        return {
+            'title': self.get_queryset().title,
+            'body': self.get_queryset().body
+        }
+
+    def get_queryset(self):
+        return Post.objects.get(pk=self.kwargs.get('pk'))
+
+    def form_valid(self, form):
+        post = self.get_queryset()
+
+        data = form.cleaned_data
+
+        post.title = data['title']
+        post.body = data['body']
+
+        post.date = datetime.datetime.now()
+
+        post.save()
+        print(post)
+        return HttpResponseRedirect(f"/vibbo/post/{post.pk}/")
+
+
 class ChangeProfileView(FormView):
     template_name = 'vibbo/profile_change.html'
     form_class = ProfileForm
@@ -136,4 +164,9 @@ def all_posts(request):
     return render(request, template_name, context)
 
 
+def delete_post(request, pk, **kwargs):
+    post = Post.objects.get(pk=pk)
+    post.delete()
+
+    return HttpResponseRedirect(f"../delete/success")
 
