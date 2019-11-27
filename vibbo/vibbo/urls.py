@@ -3,8 +3,9 @@ from django.urls import path, re_path
 from .views import ChangeProfileView, DisplayDetailView, PostSubmission, PostView, ChangePostView, delete_post
 from . import views
 from .models import Post
-from django.views.generic import TemplateView
 
+from django.views.generic import TemplateView
+# from django.views.generic.base import TemplateView
 
 urlpatterns = [
     path(r'profile/<int:pk>/', DisplayDetailView.as_view(), name='profile'),
@@ -18,5 +19,7 @@ urlpatterns = [
     path('deletepost/<str:pk>', delete_post, name="delete_post"),
     path('delete/success',  TemplateView.as_view(template_name='vibbo/post_delete.html'), name="post_deleted"),
     path('profile/posts', views.all_posts, name="all_posts"),
-    path(r'post/<str:pk>/', PostView.as_view(model=Post), name="post_view")
+    path(r'post/<str:pk>/', PostView.as_view(model=Post), name="post_view"),
+    path('about/', TemplateView.as_view(template_name='about.html'), name="about"),
+    path('contacts/', TemplateView.as_view(template_name='contacts.html'), name="contacts"),
 ]
