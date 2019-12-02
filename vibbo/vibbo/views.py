@@ -1,22 +1,80 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.views.generic import DetailView, FormView
 from django.db import models
-from .models import Profile
-from .forms import ProfileForm
+from .models import Profile, Post
+from .forms import ProfileForm, PostForm
 from django.contrib.auth.models import User
 from django.http import HttpResponseRedirect
 
+import time
 # Create your views here.
 # accounts/views.py
 from django.contrib.auth.forms import UserCreationForm
 from django.urls import reverse_lazy
 from django.views import generic
 
+import datetime
+
 
 class SignUp(generic.CreateView):
     form_class = UserCreationForm
     success_url = reverse_lazy('login')
     template_name = 'signup.html'
+
+
+class PostSubmission(FormView):
+    template_name = "vibbo/post_submit.html"
+    form_class = PostForm
+
+    def get_initial(self):
+        return {
+            'title': "",
+            'body': ""
+        }
+
+    def get_queryset(self):
+        return Post(user=self.request.user)
+
+    def form_valid(self, form):
+        data = form.cleaned_data
+        post = self.get_queryset()
+
+        post.title = data['title']
+        post.body = data['body']
+
+        post.date = datetime.datetime.now()
+
+        post.save()
+        print(post)
+        return HttpResponseRedirect(f"/vibbo/post/{post.pk}/")
+
+
+class ChangePostView(FormView):
+    template_name = 'vibbo/post_submit.html'
+    form_class = PostForm
+
+    def get_initial(self):
+        return {
+            'title': self.get_queryset().title,
+            'body': self.get_queryset().body
+        }
+
+    def get_queryset(self):
+        return Post.objects.get(pk=self.kwargs.get('pk'))
+
+    def form_valid(self, form):
+        post = self.get_queryset()
+
+        data = form.cleaned_data
+
+        post.title = data['title']
+        post.body = data['body']
+
+        post.date = datetime.datetime.now()
+
+        post.save()
+        print(post)
+        return HttpResponseRedirect(f"/vibbo/post/{post.pk}/")
 
 
 class ChangeProfileView(FormView):
@@ -63,7 +121,12 @@ class DisplayDetailView(DetailView):
     model = Profile
 
 
-def allUsers(request, pk = None):
+class PostView(DetailView):
+    template_name = "vibbo/post_page.html"
+    model = Post
+
+
+def allUsers(request, pk=None):
     users = User.objects.all()
     template_name = "vibbo/allUsers.html"
 
@@ -89,3 +152,49 @@ def allUsers(request, pk = None):
     return render(request, template_name, context)
 
 
+def all_posts(request):
+    posts = Post.objects.filter(user=request.user).order_by('-date')
+    template_name = 'vibbo/all_posts.html'
+
+    context = {
+        'user': request.user,
+        'posts': posts
+    }
+
+    return render(request, template_name, context)
+
+
+def delete_post(request, pk, **kwargs):
+    post = Post.objects.get(pk=pk)
+    post.delete()
+
+    return HttpResponseRedirect(f"../delete/success")
+
+
+def followUser(request, id):
+    from_user = get_object_or_404(User, id=id)
+    from_user.profile.follows.add(request.user.profile)
+    return HttpResponseRedirect(f"/vibbo/home/allusers")
+
+
+def unfollowUser(request, id):
+    from_user = get_object_or_404(User, id=id)
+    from_user.profile.follows.remove(request.user.profile)
+    return HttpResponseRedirect(f"/vibbo/home/allusers")
+
+
+def getAllMyFollowsPosts(request):
+    all_following_posts = Post.objects.filter(user=request.user)
+    template_name = 'vibbo/all_posts.html'
+
+    for following in request.user.profile.follows.all():
+        posts = Post.objects.filter(user=following).order_by('-date')
+        for post in posts:
+            all_following_posts.append(post)
+
+    context = {
+        'user': request.user,
+        'posts': all_following_posts
+    }
+
+    return render(request, template_name, context)
