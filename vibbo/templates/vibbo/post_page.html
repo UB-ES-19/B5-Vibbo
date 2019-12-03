@@ -10,14 +10,16 @@
 <p>.</p>
 <p>.</p>
 <p>.</p>
-<p>Date: {{ post.date }}</p>
-<p>Title: {{ post.title }}</p>
-<p>Body: {{ post.body }}</p>
-<p><a href="{% url 'home' %}">Back home</a></p>
-<p><a href="{% url 'all_posts' %}">View all posts</a></p>
-<p><a href="{% url 'newpost' %}">Make another post</a></p>
-<p><a href="{% url 'editpost' pk=post.pk %}">Edit this post</a></p>
-<p><a href="{% url 'delete_post' pk=post.pk %}">Delete this post</a></p>
+<div class="text-center">
+    <p>Date: {{ post.date }}</p>
+    <p>Title: {{ post.title }}</p>
+    <p>Body: {{ post.body }}</p>
+    <p><a href="{% url 'home' %}">Back home</a></p>
+    <p><a href="{% url 'all_posts' %}">View all posts</a></p>
+    <p><a href="{% url 'newpost' %}">Make another post</a></p>
+    <p><a href="{% url 'editpost' pk=post.pk %}">Edit this post</a></p>
+    <p><a href="{% url 'delete_post' pk=post.pk %}">Delete this post</a></p>
+</div>
 {% endif %}
 {% endblock %}
 
