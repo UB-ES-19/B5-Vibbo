@@ -34,3 +34,13 @@ class PostForm(forms.ModelForm):
             'title',
             'body'
         )
+
+
+class CommentForm(forms.ModelForm):
+    comment_body = forms.CharField()
+
+    class Meta:
+        model = User
+        fields = (
+            'comment_body',
+        )
