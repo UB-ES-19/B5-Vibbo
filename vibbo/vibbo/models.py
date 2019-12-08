@@ -35,6 +35,10 @@ class Post(models.Model):
     title = models.CharField(max_length=255, blank=True)
     body = models.CharField(max_length=1023, blank=True)
 
+    street = models.CharField(max_length=30, blank=True)
+    city = models.CharField(max_length=30, blank=True)
+    location_code = models.fields.IntegerField(max_length=30, blank=True)
+
     date = models.DateField(default=datetime.datetime.now())
 
     objects = models.Manager()

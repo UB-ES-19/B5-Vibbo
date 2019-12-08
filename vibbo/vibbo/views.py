@@ -27,9 +27,13 @@ class PostSubmission(FormView):
     form_class = PostForm
 
     def get_initial(self):
+        user_profile = Profile.objects.filter(user=self.request.user)[0]
         return {
-            'title': "",
-            'body': ""
+            'title': "Item for sale",
+            'body': "Item description",
+            'street': user_profile.street,
+            'city': user_profile.city,
+            'location_code': user_profile.location_code,
         }
 
     def get_queryset(self):
@@ -42,10 +46,13 @@ class PostSubmission(FormView):
         post.title = data['title']
         post.body = data['body']
 
+        post.street = data['street']
+        post.city = data['city']
+        post.location_code = data['location_code']
+
         post.date = datetime.datetime.now()
 
         post.save()
-        print(post)
         return HttpResponseRedirect(f"/vibbo/post/{post.pk}/")
 
 
@@ -56,7 +63,10 @@ class ChangePostView(FormView):
     def get_initial(self):
         return {
             'title': self.get_queryset().title,
-            'body': self.get_queryset().body
+            'body': self.get_queryset().body,
+            'street': self.get_queryset().street,
+            'city': self.get_queryset().city,
+            'location_code': self.get_queryset().location_code,
         }
 
     def get_queryset(self):
@@ -70,10 +80,13 @@ class ChangePostView(FormView):
         post.title = data['title']
         post.body = data['body']
 
+        post.street = data['street']
+        post.city = data['city']
+        post.location_code = data['location_code']
+
         post.date = datetime.datetime.now()
 
         post.save()
-        print(post)
         return HttpResponseRedirect(f"/vibbo/post/{post.pk}/")
 
 

@@ -13,6 +13,10 @@
          <p style="text-align: center">{{ post.date }}</p>
          <p style="text-align: center">Title: {{ post.title }}</p>
          <p style="text-align: center">Body: {{ post.body }}</p>
+
+         <p style="text-align: center">Street: {{ post.street }}</p>
+         <p style="text-align: center">City: {{ post.city }}</p>
+         <p style="text-align: center">Location code: {{ post.location_code }}</p>
          <p style="text-align: center"><a href="{% url 'post_view' pk=post.pk %}">Post detail</a></p>
          <p>.</p>
      {% endfor %}
