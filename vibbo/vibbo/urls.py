@@ -25,4 +25,7 @@ urlpatterns = [
     path(r'followuser/<int:id>', views.followUser, name="follow_user"),
     path(r'unfollowuser/<int:id>', views.unfollowUser, name="unfollow_user"),
     path('home/followingsposts', views.getAllMyFollowsPosts, name="all_followings_posts"),
+
+    path('searchposts', TemplateView.as_view(template_name='vibbo/search_posts_page.html'), name="search_posts"),
+    path('foundposts/<str:search_type>/<str:search_string>', views.found_posts, name="found_posts"),
 ]

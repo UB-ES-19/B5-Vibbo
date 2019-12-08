@@ -177,6 +177,25 @@ def all_posts(request):
     return render(request, template_name, context)
 
 
+def found_posts(request, search_type, search_string):
+    template_name = 'vibbo/found_posts_page.html'
+    posts = []
+
+    if search_type == "street":
+        posts = Post.objects.filter(street__contains=search_string).order_by('-date')
+    elif search_type == "city":
+        posts = Post.objects.filter(city__contains=search_string).order_by('-date')
+    elif search_type == "locationcode":
+        posts = Post.objects.filter(location_code__contains=search_string).order_by('-date')
+
+    context = {
+        'request_type': search_type,
+        'request_text': search_string,
+        'posts': posts,
+    }
+    return render(request, template_name, context)
+
+
 def delete_post(request, pk, **kwargs):
     post = Post.objects.get(pk=pk)
     post.delete()

@@ -27,6 +27,13 @@
                       location.href = "{% url 'all_posts' %}";
                   };
               </script>
+
+        <button id="search_posts_button" class="btn btn-secondary" >Search for a product</button>
+              <script type="text/javascript">
+                  document.getElementById("search_posts_button").onclick = function () {
+                      location.href = "{% url 'search_posts' %}";
+                  };
+              </script>
 {% else %}
   <p>You are not logged in</p>
   <a href="{% url 'login' %}">login</a>

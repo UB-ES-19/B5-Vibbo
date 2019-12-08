@@ -1,0 +1,44 @@
+<!-- templates/home.html -->
+{% extends 'base.html' %}
+
+{% block title %}Found posts{% endblock %}
+
+{% block content %}
+
+        <h1 style="text-align: center; margin-top: 30px">For request {{ request_text }} on {{ request_type }} field found posts: </h1>
+{% if posts %}
+     {% for post in posts %}
+         <p style="text-align: center">{{ post.date }}</p>
+         <p style="text-align: center">Title: {{ post.title }}</p>
+         <p style="text-align: center">Body: {{ post.body }}</p>
+
+         <p style="text-align: center">Street: {{ post.street }}</p>
+         <p style="text-align: center">City: {{ post.city }}</p>
+         <p style="text-align: center">Location code: {{ post.location_code }}</p>
+         <p style="text-align: center"><a href="{% url 'post_view' pk=post.pk %}">Post detail</a></p>
+         <p>.</p>
+     {% endfor %}
+
+{% else %}
+    <p>No posts are available.</p>
+{% endif %}
+        <button id="home_button1" class="btn btn-secondary" >Home</button>
+              <script type="text/javascript">
+                  document.getElementById("home_button1").onclick = function () {
+                      location.href = "{% url 'home' %}";
+                  };
+              </script>
+
+        <button id="search_posts_button" class="btn btn-secondary" >Back to search</button>
+              <script type="text/javascript">
+                  document.getElementById("search_posts_button").onclick = function () {
+                      location.href = "{% url 'search_posts' %}";
+                  };
+              </script>
+
+{% endblock %}
+
+
+<br/>
+<br/>
+<footer> Here add all the Privacy/Copyright etc.. informations </footer>

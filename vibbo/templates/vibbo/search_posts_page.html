@@ -1,0 +1,44 @@
+<!--{% extends 'base.html' %}-->
+{% block content %}
+
+<p>.</p>
+<p>.</p>
+    <p>Street name</p>
+    <input type="text" id="street_name" >
+    <button id="search_prod_street" class="btn btn-secondary" >Search by street</button>
+      <script type="text/javascript">
+          document.getElementById("search_prod_street").onclick = function () {
+              if (document.getElementById('street_name').value == ""){
+              } else {
+                    var street = document.getElementById('street_name').value;
+                    location.href = "{% url 'found_posts' search_type='street' search_string=12345 %}".replace(/12345/, street.toString());
+              }
+          };
+      </script>
+    <p>City name</p>
+    <input type="text" id="city_name" >
+    <button id="search_prod_city" class="btn btn-secondary" >Search by City name</button>
+      <script type="text/javascript">
+          document.getElementById("search_prod_city").onclick = function () {
+              if (document.getElementById('city_name').value == ""){
+              } else {
+                    var city = document.getElementById('city_name').value;
+                    location.href = "{% url 'found_posts' search_type='city' search_string=12345 %}".replace(/12345/, city.toString());
+              }
+          };
+      </script>
+    <p>Location code</p>
+    <input type="text" id="location_code" >
+    <button id="search_prod_loc" class="btn btn-secondary" >Search by location code</button>
+      <script type="text/javascript">
+          document.getElementById("search_prod_loc").onclick = function () {
+              if (document.getElementById('location_code').value == ""){
+              } else {
+                    var loc_code = document.getElementById('location_code').value;
+                    location.href = "{% url 'found_posts' search_type='locationcode' search_string=12345 %}".replace(/12345/, loc_code.toString());
+              }
+          };
+      </script>
+
+
+{% endblock %}
