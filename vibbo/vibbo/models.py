@@ -3,6 +3,7 @@ from django.contrib.auth.models import User
 from django.dispatch import receiver
 from django.db.models.signals import post_save
 
+from django.utils.timezone import now
 
 import datetime
 # Create your models here.
@@ -39,9 +40,27 @@ class Post(models.Model):
     city = models.CharField(max_length=30, blank=True)
     location_code = models.fields.IntegerField(max_length=30, blank=True)
 
-    date = models.DateField(default=datetime.datetime.now())
+    date = models.DateField(default=now())
+    time = models.TimeField(default=now())
 
     objects = models.Manager()
 
     class Meta:
         ordering = ['-date']
+
+
+class Comment(models.Model):
+    post_reference = models.ForeignKey(Post, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+
+    comment_body = models.CharField(max_length=1023, blank=True)
+
+    date = models.TimeField(default=now())
+
+    objects = models.Manager()
+
+    class Meta:
+        ordering = ['-date']
+
+
+

@@ -1,8 +1,8 @@
 from django.shortcuts import render, get_object_or_404
 from django.views.generic import DetailView, FormView
 from django.db import models
-from .models import Profile, Post
-from .forms import ProfileForm, PostForm
+from .models import Profile, Post, Comment
+from .forms import ProfileForm, PostForm, CommentForm
 from django.contrib.auth.models import User
 from django.http import HttpResponseRedirect
 
@@ -13,7 +13,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.urls import reverse_lazy
 from django.views import generic
 
-import datetime
+from django.utils.timezone import now
 
 
 class SignUp(generic.CreateView):
@@ -50,7 +50,7 @@ class PostSubmission(FormView):
         post.city = data['city']
         post.location_code = data['location_code']
 
-        post.date = datetime.datetime.now()
+        post.date = now()
 
         post.save()
         return HttpResponseRedirect(f"/vibbo/post/{post.pk}/")
@@ -84,7 +84,7 @@ class ChangePostView(FormView):
         post.city = data['city']
         post.location_code = data['location_code']
 
-        post.date = datetime.datetime.now()
+        post.date = now()
 
         post.save()
         return HttpResponseRedirect(f"/vibbo/post/{post.pk}/")
@@ -134,9 +134,47 @@ class DisplayDetailView(DetailView):
     model = Profile
 
 
-class PostView(DetailView):
-    template_name = "vibbo/post_page.html"
-    model = Post
+def get_post_with_comments(request, pk=None):
+    template_name = 'vibbo/post_page.html'
+
+    if pk is None:
+        pass
+        # resolve error
+
+    form = None
+    if request.method == 'POST':
+        # create a form instance and populate it with data from the request:
+        form = CommentForm(request.POST)
+        # check whether it's valid:
+        if form.is_valid():
+            # process the data in form.cleaned_data as required
+            # ...
+            # redirect to a new URL:
+            comment = Comment()
+            comment.user = request.user
+            comment.post_reference = Post.objects.get(pk=pk)
+
+            comment.comment_body = form.cleaned_data['comment_body']
+            comment.date = now()
+
+            comment.save()
+
+            return HttpResponseRedirect(f"/vibbo/post/{pk}/")
+
+    # if a GET (or any other method) we'll create a blank form
+    else:
+        form = CommentForm()
+
+    post = Post.objects.get(pk=pk)
+    all_post_comments = Comment.objects.filter(post_reference=post)
+
+    context = {
+        'post': post,
+        'comments': all_post_comments,
+        'form': form
+    }
+
+    return render(request, template_name, context)
 
 
 def allUsers(request, pk=None):

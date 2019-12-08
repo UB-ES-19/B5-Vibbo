@@ -24,12 +24,14 @@
 {% else %}
     <p>No posts are available.</p>
 {% endif %}
-        <button id="home_button1" class="btn btn-secondary" >Home</button>
+    <div class="text-center">
+        <button id="home_button1" class="btn btn-secondary">Home</button>
               <script type="text/javascript">
                   document.getElementById("home_button1").onclick = function () {
                       location.href = "{% url 'home' %}";
                   };
               </script>
+     </div>
 {% endblock %}
 
 <br/>

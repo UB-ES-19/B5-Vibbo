@@ -8,14 +8,21 @@
 <p>.</p>
 <p>.</p>
 <p>.</p>
-<p>.</p>
-<p>.</p>
-<p style="text-align: center">Date: {{ post.date }}</p>
+<p style="text-align: center">Date: {{ post.date }}, {{ post.time }}</p>
 <p style="text-align: center">Title: {{ post.title }}</p>
 <p style="text-align: center">Body: {{ post.body }}</p>
 <p style="text-align: center">Street: {{ post.street }}</p>
 <p style="text-align: center">City: {{ post.city }}</p>
 <p style="text-align: center">Location code: {{ post.location_code }}</p>
+    {% for comment in comments %}
+    <p>Commentor: {{ comment.user }}, date: {{ comment.date }} </p>
+    <p>{{ comment.comment_body }}</p>
+    {% endfor %}
+    <h2 class="text-center">Add comment</h2>
+  <form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Submit comment</button>
 
 <p><a href="{% url 'home' %}">Back home</a></p>
 <p><a href="{% url 'all_posts' %}">View all posts</a></p>
@@ -25,5 +32,4 @@
 {% endif %}
 {% endblock %}
 
-<br/>
 <br/>
