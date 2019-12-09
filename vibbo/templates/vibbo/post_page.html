@@ -24,6 +24,9 @@
     {{ form.as_p }}
     <button type="submit">Submit comment</button>
 
+
+<p><a href="{% url 'favourite_post' pk=post.pk %}">Favourite this post</a></p>
+
 <p><a href="{% url 'home' %}">Back home</a></p>
 <p><a href="{% url 'all_posts' %}">View all posts</a></p>
 <p><a href="{% url 'newpost' %}">Make another post</a></p>

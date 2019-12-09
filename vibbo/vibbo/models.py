@@ -63,4 +63,9 @@ class Comment(models.Model):
         ordering = ['-date']
 
 
+class Favourites(models.Model):
+    user_ref = models.ForeignKey(User, on_delete=models.CASCADE)
+    post_ref = models.ForeignKey(Post, on_delete=models.CASCADE)
+
+    objects = models.Manager()
 
