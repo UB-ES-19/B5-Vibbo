@@ -1,7 +1,7 @@
 from django.shortcuts import render, get_object_or_404
 from django.views.generic import DetailView, FormView
 from django.db import models
-from .models import Profile, Post, Comment
+from .models import Profile, Post, Comment, Favourites
 from .forms import ProfileForm, PostForm, CommentForm
 from django.contrib.auth.models import User
 from django.http import HttpResponseRedirect
@@ -267,4 +267,34 @@ def getAllMyFollowsPosts(request):
         'posts': all_following_posts
     }
 
+    return render(request, template_name, context)
+
+
+def favourite_post(request, pk):
+    fav = Favourites()
+    fav.user_ref = request.user
+    fav.post_ref = Post.objects.get(pk=pk)
+
+    fav.save()
+
+    return HttpResponseRedirect(f"/vibbo/post/{pk}/")
+
+
+def unfavourite_post(request, pk):
+    fav = Favourites.objects.get(post_ref=Post.objects.get(pk=pk), user_ref=request.user)
+    fav.delete()
+    return HttpResponseRedirect(f"/vibbo/favourites")
+
+
+def get_all_favourites(request):
+    template_name = 'vibbo/all_fav_posts.html'
+    favs = Favourites.objects.filter(user_ref=request.user)
+
+    posts = [fav.post_ref for fav in favs]
+    if posts:
+        context = {
+            'posts': posts,
+        }
+    else:
+        context = {}
     return render(request, template_name, context)

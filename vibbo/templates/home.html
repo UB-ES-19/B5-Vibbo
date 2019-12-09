@@ -37,6 +37,14 @@
                   };
               </script>
 
+            <button id="all_favs_button" class="btn btn-secondary" >All favourite posts</button>
+              <script type="text/javascript">
+                  document.getElementById("all_favs_button").onclick = function () {
+                      location.href = "{% url 'all_favourites' %}";
+                  };
+              </script>
+
+
 </div>
 {% else %}
 <div class="text-center">

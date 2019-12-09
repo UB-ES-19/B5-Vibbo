@@ -1,0 +1,40 @@
+<!-- templates/home.html -->
+{% extends 'base.html' %}
+
+{% block title %}All favourite posts{% endblock %}
+
+{% block content %}
+
+        <h1 style="text-align: center; margin-top: 30px">Your favourite posts</h1>
+<!--        <h1 style="text-align: center">All Users</h1>-->
+{% if posts %}
+     {% for post in posts %}
+<!--         <p style="text-align: center">{{ post }}</p>-->
+         <p style="text-align: center">{{ post.date }}</p>
+         <p style="text-align: center">Title: {{ post.title }}</p>
+         <p style="text-align: center">Body: {{ post.body }}</p>
+
+         <p style="text-align: center">Street: {{ post.street }}</p>
+         <p style="text-align: center">City: {{ post.city }}</p>
+         <p style="text-align: center">Location code: {{ post.location_code }}</p>
+
+         <p style="text-align: center"><a href="{% url 'unfav_post' pk=post.pk %}">Unfavourite post</a></p>
+         <p style="text-align: center"><a href="{% url 'post_view' pk=post.pk %}">Post detail</a></p>
+         <p>.</p>
+     {% endfor %}
+{% else %}
+    <p>You have no favourite posts.</p>
+{% endif %}
+    <div class="text-center">
+        <button id="home_button1" class="btn btn-secondary">Home</button>
+              <script type="text/javascript">
+                  document.getElementById("home_button1").onclick = function () {
+                      location.href = "{% url 'home' %}";
+                  };
+              </script>
+     </div>
+{% endblock %}
+
+<br/>
+<br/>
+<footer> Here add all the Privacy/Copyright etc.. informations </footer>
