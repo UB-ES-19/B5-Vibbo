@@ -225,6 +225,8 @@ def found_posts(request, search_type, search_string):
         posts = Post.objects.filter(city__contains=search_string).order_by('-date')
     elif search_type == "locationcode":
         posts = Post.objects.filter(location_code__contains=search_string).order_by('-date')
+    elif search_type == "name":
+        posts = Post.objects.filter(title__contains=search_string).order_by('-date')
 
     context = {
         'request_type': search_type,
