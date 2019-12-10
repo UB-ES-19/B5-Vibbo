@@ -1,0 +1,23 @@
+<!-- templates/home.html -->
+{% extends 'base.html' %}
+
+{% block title %}All users{% endblock %}
+
+{% block content %}
+
+    {% if users %}
+        <h1 style="text-align: center; margin-top: 30px">User Searched</h1>
+        <p style="text-align: center" >{{ user_searched }}</p>
+        <h1 style="text-align: center">All Users</h1>
+     {% for user in users %}
+         <p style="text-align: center">{{user}}</p>
+     {% endfor %}
+
+{% else %}
+    <p>No users are available.</p>
+{% endif %}
+{% endblock %}
+
+<br/>
+<br/>
+<footer> Here add all the Privacy/Copyright etc.. informations </footer>

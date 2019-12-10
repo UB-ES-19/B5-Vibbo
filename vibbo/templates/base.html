@@ -8,44 +8,88 @@
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <title>Shop Homepage - Start Bootstrap Template</title>
+  <title>Golden Trash Can - Base </title>
 
   <!-- Bootstrap core CSS -->
-  <link href="/static/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="/static/vendor/bootstrap/css/bootstrap.css" rel="stylesheet">
+    <!-- link href="/static/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet", changements pas faits dans ce fichier, à faire ? -->
 
   <!-- Custom styles for this template -->
   <link href="/static/css/shop-homepage.css" rel="stylesheet">
- <!-- <title>{% block title %}Django Auth Tutorial{% endblock %}</title> -->
 </head>
-<body>
+    
+<body style="background-color:rgb(255, 243, 204);">
 
 <!-- Navigation -->
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
     <div class="container">
-      <a class="navbar-brand" href="#">Vibbo</a>
+        <img class="img" style="width:5%" src="/static/images/goldentrashcan.png" alt="Golden Trash Can" href="#">
+      <a class="navbar-brand" href="#">Golden Trash Can</a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
+
+    <div style="text-align: center">
+    <br>
+    <input type="text" id="username" >
+    <button id="searchusers" class="btn btn-secondary" >Search users</button>
+      <script type="text/javascript">
+          document.getElementById("searchusers").onclick = function () {
+              if (document.getElementById('username').value == ""){
+                    console.log("hola");
+                    location.href = "{% url 'allusers' %}";
+              } else {
+                    var name = document.getElementById('username').value;
+                    console.log("NAME: ", name);
+                    location.href = "{% url 'allusers_user' pk=12345 %}".replace(/12345/, name.toString());
+              }
+          };
+      </script>
+
+    </div>
+
       <div class="collapse navbar-collapse" id="navbarResponsive">
         <ul class="navbar-nav ml-auto">
           <li class="nav-item active">
-            <a class="nav-link" href="#">Home
+            <a class="nav-link" href="{% url 'home' %}">Home
               <span class="sr-only">(current)</span>
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">About</a>
+            <a class="nav-link" href="{% url 'about' %}">About</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="#">Products</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">Contact</a>
+            <a class="nav-link" href="{% url 'contacts' %}">Contact</a>
           </li>
+          <li>
+            {% if user.is_authenticated %}
+              <li class="nav-item dropdown dmenu">
+              <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+                {{ user.username }}'s profile
+              </a>
+              <div class="dropdown-menu sm-menu ">
+                <a class="dropdown-item" href="{% url 'profile' pk=user.profile.pk %}">My informations</a>
+                <a class="dropdown-item" href="{% url 'logout' %}">Log out</a>
+              </div>
+              </li>
+            {% else %}
+              <button id="loginButton" class="btn btn-secondary" >Log in</button>
+              <script type="text/javascript">
+                  document.getElementById("loginButton").onclick = function () {
+                      location.href = "{% url 'login' %}";
+                  };
+              </script>
+            {% endif %}
+          </li>
+
         </ul>
       </div>
     </div>
   </nav>
+
 
   <main>
     {% block content %}
@@ -53,9 +97,9 @@
   </main>
 
 <!-- Footer -->
-  <footer class="py-5 bg-dark">
+  <footer id="footer" class="footer py-5 bg-dark nav">
     <div class="container">
-      <p class="m-0 text-center text-white">Copyright &copy; Vibbo - ES Project - Universitat de Barcelona, 2019-2020</p>
+      <p class="m-0 text-center text-black">Copyright &copy; Golden Trash Can - ES Project - Universitat de Barcelona, 2019-2020</p>
     </div>
     <!-- /.container -->
   </footer>

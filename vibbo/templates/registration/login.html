@@ -4,10 +4,22 @@
 {% block title %}Login{% endblock %}
 
 {% block content %}
-<h2>Login</h2>
 <form method="post">
+	<h2>
+		<p>&nbsp;</p>
+	Log In
+	</h2>
+	<p>&nbsp;</p>
   {% csrf_token %}
   {{ form.as_p }}
-  <button type="submit">Login</button>
+   <button type="submit">Login</button>
 </form>
+
+<h2>Not registered ? </h2>
+<button id="signupButton" class="btn btn-secondary" >Sign up now</button>
+<script type="text/javascript">
+    document.getElementById("signupButton").onclick = function () {
+        location.href = "{% url 'signup' %}";
+    };
+</script>
 {% endblock %}
