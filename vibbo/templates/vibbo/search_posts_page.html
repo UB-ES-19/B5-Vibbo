@@ -3,6 +3,19 @@
 
 <p>.</p>
 <p>.</p>
+    <p>Product name</p>
+    <input type="text" id="prod_name" >
+    <button id="search_prod_name" class="btn btn-secondary" >Search by product name</button>
+      <script type="text/javascript">
+          document.getElementById("search_prod_name").onclick = function () {
+              if (document.getElementById('prod_name').value == ""){
+              } else {
+                    var p_name = document.getElementById('prod_name').value;
+                    location.href = "{% url 'found_posts' search_type='name' search_string=12345 %}".replace(/12345/, p_name.toString());
+              }
+          };
+      </script>
+
     <p>Street name</p>
     <input type="text" id="street_name" >
     <button id="search_prod_street" class="btn btn-secondary" >Search by street</button>
