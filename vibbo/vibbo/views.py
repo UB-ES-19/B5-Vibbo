@@ -127,10 +127,12 @@ def allUsers(request, pk=None):
 def all_posts(request):
     posts = Post.objects.filter(user=request.user).order_by('-date')
     template_name = 'vibbo/all_posts.html'
-
+    u = User.objects.filter().all #Send all_users for US-14, reference another user in a comment.
     context = {
         'user': request.user,
-        'posts': posts
+        'posts': posts,
+        'all_users' : u
+
     }
 
     return render(request, template_name, context)
@@ -162,4 +164,15 @@ def getAllMyFollowsPosts(request):
         'posts': all_following_posts
     }
 
+    return render(request, template_name, context)
+
+""
+def getFavoriteProducts(request):
+
+    all_following_posts = Post.objects.filter(user=request.user)
+    template_name = 'vibbo/all_posts.html'
+
+    context = {
+        'p': all_following_posts
+    }
     return render(request, template_name, context)
