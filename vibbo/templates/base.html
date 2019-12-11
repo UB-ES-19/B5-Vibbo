@@ -8,7 +8,7 @@
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <title>Golden Trash Can - Base </title>
+  <title>Golden Trashcan - Base </title>
 
   <!-- Bootstrap core CSS -->
   <link href="/static/vendor/bootstrap/css/bootstrap.css" rel="stylesheet">
@@ -25,27 +25,13 @@
   <nav class="navbar navbar-expand-lg navbar-dark bg-top fixed-top">
     <div class="container">
         <img class="img" style="width:5%" src="/static/images/goldentrashcan.png" alt="Golden Trash Can" href="#">
-        <a class="navbar-brand" href="#">Golden Trash Can</a>
+        <a class="navbar-brand" href="#">Golden Trashcan</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
 
       <div style="text-align: center">
       <br>
-      <input type="text" id="username" >
-      <button id="searchusers" class="btn btn-secondary" >Search users</button>
-        <script type="text/javascript">
-            document.getElementById("searchusers").onclick = function () {
-                if (document.getElementById('username').value == ""){
-                      console.log("hola");
-                      location.href = "{% url 'allusers' %}";
-                } else {
-                      var name = document.getElementById('username').value;
-                      console.log("NAME: ", name);
-                      location.href = "{% url 'allusers_user' pk=12345 %}".replace(/12345/, name.toString());
-                }
-            };
-        </script>
 
     </div>
 
