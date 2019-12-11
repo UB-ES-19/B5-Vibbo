@@ -5,21 +5,54 @@
 {% block content %}
 {% if user.is_authenticated %}
 
+<style>
+body {
+  min-height: 100vh;
+}
+.text-gray {
+  color: #aaa;
+}
+</style>
+
+
 <br/>
 <div class="text-center">
     <h2>Post resume</h2>
     <br/>
-    <p>Date: {{ post.date }}, {{ post.time }}</p>
-    <p>Title: {{ post.title }}</p>
-    <p>Body: {{ post.body }}</p>
-    <p>Street: {{ post.street }}</p>
-    <p>City: {{ post.city }}</p>
-    <p>Location code: {{ post.location_code }}</p>
-        {% for comment in comments %}
-        <p>Commentor: {{ comment.user }}, date: {{ comment.date }} </p>
-        <p>{{ comment.comment_body }}</p>
-        {% endfor %}
 
+<div class="container py-5">
+  <div class="row">
+    <div class="col-lg-8 mx-auto">
+      <!-- List group-->
+      <ul class="list-group shadow">
+          <!-- list group item-->
+        <li class="list-group-item">
+          <!-- Custom content-->
+          <div class="media align-items-lg-center flex-column flex-lg-row p-3">
+            <div class="media-body order-2 order-lg-1">
+              <h5 class="mt-0 font-weight-bold mb-2">{{ post.title }}</h5>
+              <p class="font-italic text-muted mb-0 small">{{ post.body }}</p>
+              <div class="d-flex align-items-center justify-content-between mt-1">
+                <h6 class="font-weight-bold my-2">Posted on {{ post.date }}</h6>
+              </div>
+			  <div class="d-flex align-items-center justify-content-between mt-1">
+                <h6 class="font-italic">{{ post.city }} ({{ post.location_code }}),{{ post.street }}</h6>
+              </div>
+            </div>
+			<img src="/static/images/box.png" alt="Generic placeholder image" width="200" class="ml-lg-5 order-1 order-lg-2">
+          </div>
+          <!-- End -->
+        </li>
+        <!-- End -->
+        {% for comment in comments %}
+        <p class="mt-0 font-weight-bold mb-2">Comment posted by : {{ comment.user }}, on : {{ comment.date }} </p>
+        <p class="font-italic text-muted mb-0 small">{{ comment.comment_body }}</p>
+        {% endfor %}
+        </ul>
+      <!-- End -->
+    </div>
+  </div>
+</div>
         <br/>
         <h4>Add comment</h4>
       <form method="post">
