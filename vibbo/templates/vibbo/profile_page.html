@@ -5,12 +5,101 @@
 
 {% block content %}
 {% if user.is_authenticated %}
-  Hi {{ user.username }}!
-  <p> You name is {{user.profile.first_name}} {{user.profile.last_name}} </p>
-<p> You bio is: </p><p> {{user.profile.bio}} </p>
-<p> You location is: </p> <p> {{user.profile.street}} {{user.profile.city}} {{user.profile.location_code}} </p>
-  <p><a href="{% url 'change' %}">Change profile</a> </p>
-  <p><a href="{% url 'home' %}">Back home</a></p>
+<style>
+#container{
+	padding-top: 50px;
+	display: flex;
+	color: #5c5c5c;
+}
+
+#pLeft{
+	 padding-left: 50px;
+}
+
+.linksTable, .linksTr, .linksTh {
+  border: 1px solid #d1d1d1;
+  border-collapse: collapse;
+}
+.linksTr, .linksTh {
+	color: #00819e;
+  padding: 10px;
+  text-align: left;
+  font-weight: normal;
+}
+
+#pRight{
+	 padding-left: 70px;
+}
+
+.stats, .statsTr, .statsTh{
+}
+
+.statsTr, .statsTh{
+	font-weight: normal;
+	padding-right: 80px;
+  	text-align: left;
+}
+
+#leftUp{
+	color: #303030;
+	text-align: center;
+}
+
+</style>
+
+
+<div id="container">
+	<div id="pLeft">
+		<div id="leftUp">
+			<img src="/static/images/defaultProfile.jpg" alt="Default Profile Picture" style="text-align: center;">
+			<p> {{user.profile.first_name}} {{user.profile.last_name}} </p>
+			<p style="font-size: 11px"> Since [sign up date] </p>
+		</div>
+
+		<table style="width:100%" class="linksTable">
+			<tr class="linksTr">
+				<th class="linksTh">Messages</th>
+			</tr>
+			<tr class="linksTr">
+				<th class="linksTh">Favs</th>
+			</tr>
+			<tr class="linksTr">
+				<th class="linksTh"><a href="{% url 'change' %}" style="color: #00819e;">Edit profile</a></th>
+			</tr>
+		</table>
+
+	</div>
+
+	<div id="pRight">
+		<table style="width:100%" class="stats">
+			<tr class="statsTr">
+				<th class="statsTh">For sale</th>
+				<th class="statsTh">Sold</th>
+				<th class="statsTh">Ratings</th>
+				<th class="statsTh">Following</th>
+				<th class="statsTh">Followers</th>
+
+			</tr>
+			<tr class="statsTr">
+				<th class="statsTh" style="color: #ba8f02">[0]</th>
+				<th class="statsTh" style="color: #ba8f02">[0]</th>
+				<th class="statsTh" style="color: #ba8f02">[0]</th>
+				<th class="statsTh" style="color: #ba8f02">[0]</th>
+				<th class="statsTh" style="color: #ba8f02">[0]</th>
+
+			</tr>
+		</table>
+		<p style="padding-top: 50px; padding-left: 200px;"> You have nothing for sale </p>
+
+<!--
+	<p> You bio is: </p><p> {{user.profile.bio}} </p>
+		<p> You location is: </p> <p> {{user.profile.street}} {{user.profile.city}} {{user.profile.location_code}} </p>
+		<p><a href="{% url 'home' %}">Back home</a></p>
+-->
+	
+	</div>
+</div>
+
 {% else %}
   <p>You are not logged in</p>
   <a href="{% url 'home' %}">back to home page</a>
