@@ -4,56 +4,244 @@
 {% block title %}Home{% endblock %}
 
 {% block content %}
-<p class="text-center">Work in construction ...</p>
 
-{% if user.is_authenticated %}
-<div class="text-center">
-    Hi {{ user.username }}!
-  <p><a href="{% url 'profile' pk=user.profile.pk %}">Access profile</a></p>
-  <p><a href="{% url 'newpost' %}">New post</a></p>
+<!--color: #50545A;-->
+<style>
+  #mainCon{
+    font-family: Calibri, Candara, Segoe, "Segoe UI", Optima, Arial, sans-serif; 
+    font-style: normal; 
+    font-variant: normal; 
+    font-weight: 300; 
+    text-align: center;
+    position: relative;
+    color: #000000;
+    z-index: 3;
+    width: 100%;
+  }
+  #overText{
+    position: absolute; margin-left: auto; margin-right: auto; left: 0; right: 0; 
+    left: 0;
+    right: 0;
+    font-size: 40px;
+    top:100%;
+  }
+  #overTextSub{
+    position: absolute; margin-left: auto; margin-right: auto; left: 0; right: 0; 
+    top:350%;
+    font-size: 26px;
+  }
 
-    <p><a href="{% url 'logout' %}">logout</a></p>
+  #searchBackground2 {
+  	background: rgba(0,0,0,0.5);
+  	position: absolute; margin-left: 40%; margin-right: 40%; left: 0; right: 0; 
+  	top:1000%;
+  }
 
-        <button id="search" class="btn btn-secondary" >Search users</button>
-              <script type="text/javascript">
-                  document.getElementById("search").onclick = function () {
-                      console.log("HOLA");
-                      location.href = "{% url 'allusers' %}";
-                  };
-              </script>
+  #searchField {
+    position: absolute; margin-left: auto; margin-right: auto; left: 0; right: 0;
+    top: 900%;
+    color: #737980;
+    background-color: #fff;
+    -webkit-text-stroke: 1px transparent;
+    max-width: 20%;
+    margin-left: auto;
+    margin-right: auto;
+    border-width: 6px;
+    border-style: solid;
+    border-color: threedface;
+  }
 
-        <button id="all_posts_button" class="btn btn-secondary" >View all posts</button>
-              <script type="text/javascript">
-                  document.getElementById("all_posts_button").onclick = function () {
-                      console.log("HOLA, my friendos");
-                      location.href = "{% url 'all_posts' %}";
-                  };
-              </script>
-
-        <button id="search_posts_button" class="btn btn-secondary" >Search for a product</button>
-              <script type="text/javascript">
-                  document.getElementById("search_posts_button").onclick = function () {
-                      location.href = "{% url 'search_posts' %}";
-                  };
-              </script>
-
-            <button id="all_favs_button" class="btn btn-secondary" >All favourite posts</button>
-              <script type="text/javascript">
-                  document.getElementById("all_favs_button").onclick = function () {
-                      location.href = "{% url 'all_favourites' %}";
-                  };
-              </script>
+  #backImage{
+	position: absolute; margin-left: auto; margin-right: auto; left: 0; right: 0; 
+	width: 50%; 
+	text-align: center; 
+	-webkit-mask-image:-webkit-gradient(linear, left top, left bottom, from(rgba(0,0,0,0)), to(rgba(0,0,0,1)));
+	mask-image: linear-gradient(to bottom, rgba(0,0,0,0), rgba(0,0,0,1));
+	}
 
 
+
+
+.categoriesPick {
+    position: absolute; margin-left: auto; margin-right: auto; left: 0; right: 0;
+    top:52%;
+    display: table;
+    display: -webkit-flex;
+    display: flex;
+    flex-flow: row wrap;
+    -webkit-flex-flow: row wrap;
+    justify-content: space-between;
+    -webkit-justify-content: space-between;
+    margin: 0 auto;
+    width: 614px;
+    list-style: none;
+}
+
+.catIcon {
+    -webkit-flex: 0 0 91px;
+    flex: 0 0 91px;
+    height: 91px;
+    margin-bottom: 10px;
+    background-color: #ffe47a;
+}
+
+.catIcon a {
+    display: block;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    text-transform: uppercase;
+    text-decoration: none;
+}
+
+.catIconLabel {
+    font-size: 9px;
+    display: block;
+    text-align: center;
+    line-height: 8px;
+    padding: 2 8px;
+    color: #000000;
+}
+
+.catIconImage{
+    display: block;
+    margin: 10px auto;
+    font-size: 22px;
+    text-align: center;
+
+}
+
+#searchBack{
+    position: absolute; margin-left: auto; margin-right: auto; left: 0; right: 0;
+    top: 800%;
+    left: 35%;
+}
+
+</style>
+
+
+
+<div id="mainCon">
+	<p class="text-center">&nbsp</p>
+	<p id="overText">I use it then I trash it</p>
+	<p id="overTextSub">One man's trash is another man's gold</p>
+	<p> <img src="/static/images/goldenbags.gif" alt="Background Frontpage" id="backImage"> </p>
+
+
+    <div>   
+        <nav class="navbar navbar-dark bg-test" id="searchBack">
+          <form class="form-inline">
+            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" style="width: 330px;">
+            <button class="btn btn-dark my-2 my-sm-0" type="submit">Search</button>
+          </form>
+        </nav>
+    </div>
+  {% if user.is_authenticated %}
+  {% else %}
+    
+  {% endif %}
 </div>
-{% else %}
-<div class="text-center">
-  <p>You are not logged in</p>
-  <a href="{% url 'login' %}">login</a>
-  <p></p>
-  <a href="{% url 'signup' %}"> sign up</a>
+
+<div class="categoriesPick">
+    <div class="catIcon">
+        <a href="/login" title="vehicles">
+            <span class="catIconImage">
+                <img src="/static/images/icons_home/vehicle.png" width="40%">
+            </span>
+            <span class="catIconLabel">vehicles</span>
+        </a>
+    </div>
+    <div class="catIcon">
+        <a href="/login" title="houses">
+            <span class="catIconImage">
+                <img src="/static/images/icons_home/house.png"width="40%">
+            </span>
+            <span class="catIconLabel">houses</span>
+        </a>
+    </div>
+    <div class="catIcon">
+        <a href="/login" title="homes">
+            <span class="catIconImage">
+                <img src="/static/images/icons_home/home.png"width="40%">
+            </span>
+            <span class="catIconLabel">homes</span>
+        </a>
+    </div>
+    <div class="catIcon">
+        <a href="/login" title="fashion">
+            <span class="catIconImage">
+                <img src="/static/images/icons_home/fashion.jpg"width="40%">
+            </span>
+            <span class="catIconLabel">fashion</span>
+        </a>
+    </div>
+    <div class="catIcon">
+        <a href="/login" title="children">
+            <span class="catIconImage">
+                <img src="/static/images/icons_home/children.png"width="40%">
+            </span>
+            <span class="catIconLabel">children</span>
+        </a>
+    </div>
+    <div class="catIcon">
+        <a href="/login" title="electronics">
+            <span class="catIconImage">
+                <img src="/static/images/icons_home/electronics.png"width="40%">
+            </span>
+            <span class="catIconLabel">electronics</span>
+        </a>
+    </div>
+    <div class="catIcon">
+        <a href="/login" title="sports">
+            <span class="catIconImage">
+                <img src="/static/images/icons_home/sports.png"width="40%">
+            </span>
+            <span class="catIconLabel">sports</span>
+        </a>
+    </div>
+    <div class="catIcon">
+        <a href="/login" title="animals">
+            <span class="catIconImage">
+                <img src="/static/images/icons_home/animal.png"width="40%">
+            </span>
+            <span class="catIconLabel">animals</span>
+        </a>
+    </div>
+    <div class="catIcon">
+        <a href="/login" title="work">
+            <span class="catIconImage">
+                <img src="/static/images/icons_home/work.png"width="40%">
+            </span>
+            <span class="catIconLabel">work</span>
+        </a>
+    </div>
+    <div class="catIcon">
+        <a href="/login" title="business">
+            <span class="catIconImage">
+                <img src="/static/images/icons_home/business.png"width="40%">
+            </span>
+            <span class="catIconLabel">business</span>
+        </a>
+    </div>
+    <div class="catIcon">
+        <a href="/login" title="others">
+            <span class="catIconImage">
+                <img src="/static/images/icons_home/others.png"width="40%">
+            </span>
+            <span class="catIconLabel">others</span>
+        </a>
+    </div>
+    <div class="catIcon">
+        <a href="/login" title="all categories">
+            <span class="catIconImage">
+                <img src="/static/images/icons_home/all.png"width="40%">
+            </span>
+            <span class="catIconLabel">all categories</span>
+        </a>
+    </div>
 </div>
-{% endif %}
+
+
 {% endblock %}
 
 <br/>
