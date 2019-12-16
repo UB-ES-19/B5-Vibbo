@@ -1,11 +1,129 @@
-<!--{% extends 'base.html' %}-->
-{% block title %}Add new post{% endblock %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
 
-{% block content %}
-  <h2>Add/edit post</h2>
-  <form method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Submit post</button>
-  </form>
-{% endblock %}
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+
+
+
+
+  <title>Golden Trashcan - Base </title>
+
+  <!-- Bootstrap core CSS -->
+  <link href="/static/vendor/bootstrap/css/bootstrap.css" rel="stylesheet">
+    <!-- link href="/static/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet", changements pas faits dans ce fichier, à faire ? -->
+
+  <!-- Custom styles for this template -->
+  <link href="/static/css/shop-homepage.css" rel="stylesheet">
+
+
+  <!-- include libraries(jQuery, bootstrap, fontawesome) -->
+  <link href="http://netdna.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.css" rel="stylesheet">
+  <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.js"></script>
+  <script src="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script>
+
+  <!-- include summernote css/js-->
+  <link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.7.0/summernote.css" rel="stylesheet">
+  <script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.7.0/summernote.js"></script>
+</head>
+
+
+
+<body style="background-color:rgb(255, 243, 204);">
+
+
+
+
+
+
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-top fixed-top">
+    <div class="container">
+        <img class="img" style="width:5%" src="/static/images/goldentrashcan.png" alt="Golden Trash Can" href="#">
+        <a class="navbar-brand" href="#">Golden Trashcan</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+      <div style="text-align: center">
+      <br>
+
+    </div>
+
+      <div class="collapse navbar-collapse" id="navbarResponsive">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item active">
+            <a class="nav-link" href="#">Home
+              <span class="sr-only">(current)</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">About</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Products</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Contact</a>
+          </li>
+          <li>
+            {% if user.is_authenticated %}
+              <li class="nav-item dropdown dmenu">
+              <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+                {{ user.username }}'s profile
+              </a>
+              <div class="dropdown-menu sm-menu ">
+                <a class="dropdown-item" href="{% url 'profile' pk=user.profile.pk %}">My informations</a>
+                <a class="dropdown-item" href="{% url 'logout' %}">Log out</a>
+              </div>
+              </li>
+            {% else %}
+              <button id="loginButton" class="btn btn-secondary" >Log in</button>
+              <script type="text/javascript">
+                  document.getElementById("loginButton").onclick = function () {
+                      location.href = "{% url 'login' %}";
+                  };
+              </script>
+            {% endif %}
+          </li>
+
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+
+<div style="width: 54%; margin-left: auto; margin-right: auto; ">
+    <h2 style="text-align: center">Add post</h2>
+    <p>&nbsp;</p>
+    <div id="summernote" style="width:500px;">&nbsp;</div>
+</div>
+  <script>
+    $(document).ready(function() {
+        $('#summernote').summernote();
+    });
+  </script>
+
+<div style="text-align:center; padding-top: 2%">
+    <button type="submit" class="btn btn-dark">Submit post</button>
+</div>
+
+
+
+
+
+<footer id="footer" class="footer py-5 bg-dark nav">
+    <div class="container">
+      <p class="m-0 text-center text-black">Copyright &copy; Golden Trash Can - ES Project - Universitat de Barcelona, 2019-2020</p>
+    </div>
+    <!-- /.container -->
+  </footer>
+
+</body>
+</html>
