@@ -4,14 +4,6 @@
 {% block title %}Login{% endblock %}
 
 {% block content %}
-
-<style>
-    #signupLink{
-        text-align: center;
-    }
-</style>
-
-
 <form method="post">
 	<h2>
 		<p>&nbsp;</p>
@@ -23,9 +15,11 @@
    <button type="submit">Login</button>
 </form>
 
-<div id="signupLink">
-<p></p>
-    <h4>No account yet?</h4>
-    <a href="{% url 'signup' %}">Sign up now</a>
-</div>
+<h2>Not registered ? </h2>
+<button id="signupButton" class="btn btn-secondary" >Sign up now</button>
+<script type="text/javascript">
+    document.getElementById("signupButton").onclick = function () {
+        location.href = "{% url 'signup' %}";
+    };
+</script>
 {% endblock %}
