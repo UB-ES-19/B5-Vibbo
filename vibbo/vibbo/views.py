@@ -1,7 +1,7 @@
 from django.shortcuts import render, get_object_or_404
 from django.views.generic import DetailView, FormView
 from django.db import models
-from .models import Profile, Post, Comment, Favourites
+from .models import Profile, Post, Comment, Favourites, Log
 from .forms import ProfileForm, PostForm, CommentForm
 from django.contrib.auth.models import User
 from django.http import HttpResponseRedirect
@@ -300,3 +300,9 @@ def get_all_favourites(request):
     else:
         context = {}
     return render(request, template_name, context)
+
+def get_logs(request):
+    template_name= 'vibbo/log_history.html'
+    logs = Log.objects.all(user=request.user)
+
+    return render(request,template_name, logs)

@@ -29,6 +29,8 @@ urlpatterns = [
     path('unfavourite/<str:pk>', views.unfavourite_post, name="unfav_post"),
     path('favourites', views.get_all_favourites, name="all_favourites"),
 
+    path('loginhistory', views.get_logs, name="login_history"),
+
     path(r'followuser/<int:id>', views.followUser, name="follow_user"),
     path(r'unfollowuser/<int:id>', views.unfollowUser, name="unfollow_user"),
     path('home/followingsposts', views.getAllMyFollowsPosts, name="all_followings_posts"),
