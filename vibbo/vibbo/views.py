@@ -303,28 +303,19 @@ def get_all_favourites(request):
     return render(request, template_name, context)
 
 def create_log(request, sender, **kwargs):
-    l = Log()
-    l.user = request.user
-    l.device= request.headers['User-Agent']
-    l.save()
-    print("aisasjdsdoasodjaosdjosddsajsadjojsaodjdasd  ", l.user, l.date, l.device)
+    log = Log()
+    log.user = request.user
+    log.device = request.headers['User-Agent']
+    log.save()
 
 user_logged_in.connect(create_log)
 
 def get_logs(request):
     template_name = 'vibbo/log_history.html'
 
-    print("VIEW REQUEST THE USER   ", request.user)
-    print("LOG OBJJJJJJ ", Log.objects.all().count())
-    print("USErssss", Profile.objects.filter(user= request.user))
-
-    tmp= Profile.objects.filter(user= request.user)
-    print(tmp.get().user, "USER PROFILE")
-
     user_logs = Log.objects.filter(user=request.user)
 
     logs = [log for log in user_logs]
-    print("LOGSLOGLOGLOGLOGLOGLOGLO  ", logs)
     if logs:
         context = {
             'user': request.user,
