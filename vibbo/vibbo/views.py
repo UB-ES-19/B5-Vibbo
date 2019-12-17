@@ -1,7 +1,8 @@
+from django.contrib.auth import user_logged_in
 from django.shortcuts import render, get_object_or_404
 from django.views.generic import DetailView, FormView
 from django.db import models
-from .models import Profile, Post, Comment, Favourites
+from .models import Profile, Post, Comment, Favourites, Log
 from .forms import ProfileForm, PostForm, CommentForm
 from django.contrib.auth.models import User
 from django.http import HttpResponseRedirect
@@ -300,3 +301,27 @@ def get_all_favourites(request):
     else:
         context = {}
     return render(request, template_name, context)
+
+def create_log(request, sender, **kwargs):
+    log = Log()
+    log.user = request.user
+    log.device = request.headers['User-Agent']
+    log.save()
+
+user_logged_in.connect(create_log)
+
+def get_logs(request):
+    template_name = 'vibbo/log_history.html'
+
+    user_logs = Log.objects.filter(user=request.user)
+
+    logs = [log for log in user_logs]
+    if logs:
+        context = {
+            'user': request.user,
+            'logs': logs,
+        }
+    else:
+        context = {}
+
+    return render(request,template_name, context)

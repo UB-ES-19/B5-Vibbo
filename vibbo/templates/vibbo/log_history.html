@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% block title %}Login history{% endblock %}
+
+{% block content %}
+<br/>
+<br>
+        <h1 class="text-center">Your login history: {{ user }}</h1>
+<div class="align-center">
+
+      {% if logs %}
+      <!-- Table group-->
+      <table align="center">
+          <tr>
+              <th>Date</th>
+              <th>Device</th>
+          </tr>
+
+     {% for log in logs %}
+           <tr>
+              <td><h6 class="mt-0 font-weight-bold mb-2">{{ log.getStringDate }}</h6></td>
+               <td><h6 class="mt-0 font-weight-bold mb-2">{{ log.getStringDevice }}</h6></td>
+           </tr>
+     {% endfor %}
+      </table>
+</div>
+{% else %}
+    <p>You didn't login before</p>
+{% endif %}
+    <div class="text-center">
+        <button id="profile_button" class="btn btn-secondary">Back to your profile</button>
+              <script type="text/javascript">
+                  document.getElementById("profile_button").onclick = function () {
+                      location.href = "{% url 'profile' pk=user.profile.pk %}";
+                  };
+              </script>
+     </div>
+{% endblock %}

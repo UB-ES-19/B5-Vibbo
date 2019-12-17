@@ -126,3 +126,8 @@ STATICFILES_DIRS = (
 
 LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/'
+
+SESSION_EXPIRE_AT_BROWSER_CLOSE = True
+
+# by itself it doesn't work
+# DATETIME_FORMAT = ['%d-%m-%Y %H:%M:%S']
