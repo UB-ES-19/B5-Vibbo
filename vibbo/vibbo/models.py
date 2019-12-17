@@ -7,6 +7,7 @@ from django.utils.timezone import now
 
 from django.contrib.auth.signals import user_logged_in
 import datetime
+from datetime import datetime
 # Create your models here.
 
 
@@ -24,16 +25,33 @@ class Profile(models.Model):
     objects = models.Manager()
     follows = models.ManyToManyField('Profile', related_name='followed_by', blank=True)
 
+
 class Log(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    date = models.DateTimeField(auto_now_add=True)
+    date = models.DateTimeField(default=datetime.now)
+    #auto_now_add=True
     device = models.CharField(max_length=30, default='Some device')
+    objects = models.Manager()
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        print("Creatoooooooooooooooooooooooooooooooooooooooooooooooo")
+
+    def __del__(self):
+        print("DESTROYING LOGGGGGGGGGGGGGGGGGGGGGGGG")
 
     def __str__(self):
         return str(self.user) + ': ' + str(self.date) + ', from ' + str(self.device)
 
-user_logged_in.connect(Log)
+    def toString(self):
+        print(str(self.user) + ': ' + str(self.date) + ', from ' + str(self.device), "ASHOASHOAHSOHASOOSHSAO")
+        return str(self.user) + ': ' + str(self.date) + ', from ' + str(self.device)
+"""""
+def create_log(sender, **kwargs):
+    Log()
 
+user_logged_in.connect(create_log)
+"""""
 @receiver(post_save, sender=User)
 def profile_for_new_user(sender, instance, created, **kwargs):
     if created:

@@ -1,3 +1,4 @@
+from django.contrib.auth import user_logged_in
 from django.shortcuts import render, get_object_or_404
 from django.views.generic import DetailView, FormView
 from django.db import models
@@ -301,8 +302,33 @@ def get_all_favourites(request):
         context = {}
     return render(request, template_name, context)
 
-def get_logs(request):
-    template_name= 'vibbo/log_history.html'
-    logs = Log.objects.all(user=request.user)
+def create_log(request, sender, **kwargs):
+    l = Log()
+    l.user = request.user
+    l.save()
+    print("aisasjdsdoasodjaosdjosddsajsadjojsaodjdasd  ", l.user, l.date, l.device)
 
-    return render(request,template_name, logs)
+user_logged_in.connect(create_log)
+
+def get_logs(request):
+    template_name = 'vibbo/log_history.html'
+
+    print("VIEW REQUEST THE USER   ", request.user)
+    print("LOG OBJJJJJJ ", Log.objects.all().count())
+    print("USErssss", Profile.objects.filter(user= request.user))
+
+    tmp= Profile.objects.filter(user= request.user)
+    print(tmp.get().user, "USER PROFILE")
+
+    user_logs = Log.objects.filter(user=request.user)
+
+    logs = [log for log in user_logs]
+    print("LOGSLOGLOGLOGLOGLOGLOGLO  ", logs)
+    if logs:
+        context = {
+            'logs': logs,
+        }
+    else:
+        context = {}
+
+    return render(request,template_name, context)
