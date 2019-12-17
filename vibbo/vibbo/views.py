@@ -5,6 +5,7 @@ from .models import Profile, Post, Comment, Favourites
 from .forms import ProfileForm, PostForm, CommentForm
 from django.contrib.auth.models import User
 from django.http import HttpResponseRedirect
+from datetime import datetime
 
 
 import time
@@ -15,6 +16,7 @@ from django.urls import reverse_lazy
 from django.views import generic
 
 from django.utils import timezone;
+now = datetime.now()
 
 
 class SignUp(generic.CreateView):
@@ -51,7 +53,7 @@ class PostSubmission(FormView):
         post.city = data['city']
         post.location_code = data['location_code']
 
-        post.date = timezone.now()
+        post.date = now
 
         post.save()
         return HttpResponseRedirect(f"/vibbo/post/{post.pk}/")
@@ -85,7 +87,7 @@ class ChangePostView(FormView):
         post.city = data['city']
         post.location_code = data['location_code']
 
-        post.date = timezone.now()
+        post.date = now
 
         post.save()
         return HttpResponseRedirect(f"/vibbo/post/{post.pk}/")
@@ -156,7 +158,7 @@ def get_post_with_comments(request, pk=None):
             comment.post_reference = Post.objects.get(pk=pk)
 
             comment.comment_body = form.cleaned_data['comment_body']
-            comment.date = timezone.now()
+            comment.date = now
 
             comment.save()
 

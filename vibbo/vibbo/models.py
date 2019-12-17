@@ -4,11 +4,10 @@ from django.dispatch import receiver
 from django.db.models.signals import post_save
 
 from django.utils.timezone import now
-
-import datetime
+from datetime import datetime
 # Create your models here.
 
-
+now = datetime.now()
 class Profile(models.Model):
     user = models.OneToOneField(User, related_name='profile', on_delete=models.CASCADE)
     first_name = models.CharField(max_length=50, blank=True)
@@ -40,8 +39,8 @@ class Post(models.Model):
     city = models.CharField(max_length=30, blank=True)
     location_code = models.fields.IntegerField(max_length=30, blank=True)
 
-    date = models.DateField(default=now())
-    time = models.TimeField(default=now())
+    date = models.DateField(default=now)
+    time = models.TimeField(default=now)
 
     objects = models.Manager()
 
@@ -55,7 +54,7 @@ class Comment(models.Model):
 
     comment_body = models.CharField(max_length=1023, blank=True)
 
-    date = models.TimeField(default=now())
+    date = models.TimeField(default=now)
 
     objects = models.Manager()
 
