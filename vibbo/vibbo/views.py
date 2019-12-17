@@ -51,7 +51,7 @@ class PostSubmission(FormView):
         post.city = data['city']
         post.location_code = data['location_code']
 
-        post.date = timezone.now
+        post.date = timezone.now()
 
         post.save()
         return HttpResponseRedirect(f"/vibbo/post/{post.pk}/")
@@ -85,7 +85,7 @@ class ChangePostView(FormView):
         post.city = data['city']
         post.location_code = data['location_code']
 
-        post.date = timezone.now
+        post.date = timezone.now()
 
         post.save()
         return HttpResponseRedirect(f"/vibbo/post/{post.pk}/")
@@ -156,7 +156,7 @@ def get_post_with_comments(request, pk=None):
             comment.post_reference = Post.objects.get(pk=pk)
 
             comment.comment_body = form.cleaned_data['comment_body']
-            comment.date = timezone.now
+            comment.date = timezone.now()
 
             comment.save()
 
