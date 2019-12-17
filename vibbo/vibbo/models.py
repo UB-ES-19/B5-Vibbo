@@ -29,8 +29,7 @@ class Profile(models.Model):
 class Log(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     date = models.DateTimeField(default=datetime.now)
-    #auto_now_add=True
-    device = models.CharField(max_length=30, default='Some device')
+    device = models.CharField(max_length=100, default='Unknown device')
     objects = models.Manager()
 
     def __init__(self, *args, **kwargs):
@@ -41,11 +40,18 @@ class Log(models.Model):
         print("DESTROYING LOGGGGGGGGGGGGGGGGGGGGGGGG")
 
     def __str__(self):
-        return str(self.user) + ': ' + str(self.date) + ', from ' + str(self.device)
+        return str(str(self.date) + ', from ' + str(self.device))
 
     def toString(self):
         print(str(self.user) + ': ' + str(self.date) + ', from ' + str(self.device), "ASHOASHOAHSOHASOOSHSAO")
         return str(self.user) + ': ' + str(self.date) + ', from ' + str(self.device)
+
+    def getStringDate(self):
+        return str(self.date)
+
+    def getStringDevice(self):
+        return str(self.device)
+
 """""
 def create_log(sender, **kwargs):
     Log()

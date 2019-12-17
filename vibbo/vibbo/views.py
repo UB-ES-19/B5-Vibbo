@@ -305,6 +305,7 @@ def get_all_favourites(request):
 def create_log(request, sender, **kwargs):
     l = Log()
     l.user = request.user
+    l.device= request.headers['User-Agent']
     l.save()
     print("aisasjdsdoasodjaosdjosddsajsadjojsaodjdasd  ", l.user, l.date, l.device)
 
@@ -326,6 +327,7 @@ def get_logs(request):
     print("LOGSLOGLOGLOGLOGLOGLOGLO  ", logs)
     if logs:
         context = {
+            'user': request.user,
             'logs': logs,
         }
     else:

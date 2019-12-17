@@ -1,48 +1,41 @@
 {% extends 'base.html' %}
-<style>
-body {
-  min-height: 100vh;
-}
-.text-gray {
-  color: #aaa;
-}
-</style>
+
 {% block title %}Login history{% endblock %}
 
 {% block content %}
+<br/>
+<br>
+        <h1 class="text-center">Your login history: {{ user }}</h1>
+<div class="align-center">
 
-        <h1 style="text-align: center; margin-top: 30px">Your login history</h1>
-<div class="container py-5">
-  <div class="row">
-    <div class="col-lg-8 mx-auto">
-      <!-- List group-->
-      <ul class="list-group shadow">
-{% if logs %}
+      {% if logs %}
+      <!-- Table group-->
+      <table align="center">
+          <tr>
+              <th>Date</th>
+              <th>Device</th>
+          </tr>
+
      {% for log in logs %}
-           <li class="list-group-item">
+           <tr>
           <!-- Custom content-->
-              <h5 class="mt-0 font-weight-bold mb-2">{{ log.toString }}</h5>
+              <td><h6 class="mt-0 font-weight-bold mb-2">{{ log.getStringDate }}</h6></td>
+               <td><h6 class="mt-0 font-weight-bold mb-2">{{ log.getStringDevice }}</h6></td>
           <!-- End -->
-        </li>
+           </tr>
         <!-- End -->
      {% endfor %}
-            </ul>
-    </div>
-  </div>
+      </table>
 </div>
 {% else %}
     <p>You didn't login before</p>
 {% endif %}
     <div class="text-center">
-        <button id="home_button1" class="btn btn-secondary">Home</button>
+        <button id="profile_button" class="btn btn-secondary">Back to your profile</button>
               <script type="text/javascript">
-                  document.getElementById("home_button1").onclick = function () {
-                      location.href = "{% url 'home' %}";
+                  document.getElementById("profile_button").onclick = function () {
+                      location.href = "{% url 'profile' pk=user.profile.pk %}";
                   };
               </script>
      </div>
 {% endblock %}
-
-<br/>
-<br/>
-<footer> Here add all the Privacy/Copyright etc.. informations </footer>
