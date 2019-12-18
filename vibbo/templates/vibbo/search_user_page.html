@@ -1,0 +1,25 @@
+<!--{% extends 'base.html' %}-->
+
+{% block title %}Search user page{% endblock %}
+
+{% block content %}
+
+<br/>
+<br/>
+<div class ="text-center">
+    <h3>User name</h3>
+    <input type="text" id="user_name" >
+    <button id="search_user_name" class="btn btn-secondary" >Search user</button>
+      <script type="text/javascript">
+          document.getElementById("search_user_name").onclick = function () {
+              if (document.getElementById('user_name').value == ""){
+                  location.href= "{% url 'allusers' %}";
+              } else {
+                    var user = document.getElementById('user_name').value;
+                    location.href = "{% url 'allusers_user' pk=12345 %}".replace(/12345/, user.toString());
+              }
+          };
+      </script>
+</div>
+
+{% endblock %}

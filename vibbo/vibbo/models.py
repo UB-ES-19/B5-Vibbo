@@ -5,7 +5,8 @@ from django.db.models.signals import post_save
 
 from django.utils.timezone import now
 
-import datetime
+from datetime import datetime
+
 # Create your models here.
 
 
@@ -23,6 +24,21 @@ class Profile(models.Model):
     objects = models.Manager()
     follows = models.ManyToManyField('Profile', related_name='followed_by', blank=True)
 
+
+class Log(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    date = models.DateTimeField(default=datetime.now)
+    device = models.CharField(max_length=100, default='Unknown device')
+    objects = models.Manager()
+
+    def toString(self):
+        return str(self.user) + ': ' + str(self.date) + ', from ' + str(self.device)
+
+    def getStringDate(self):
+        return str(self.date)
+
+    def getStringDevice(self):
+        return str(self.device)
 
 @receiver(post_save, sender=User)
 def profile_for_new_user(sender, instance, created, **kwargs):

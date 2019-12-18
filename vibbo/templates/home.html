@@ -18,57 +18,28 @@
     z-index: 3;
     width: 100%;
   }
+
   #overText{
-    position: absolute; margin-left: auto; margin-right: auto; left: 0; right: 0; 
-    left: 0;
-    right: 0;
     font-size: 40px;
-    top:100%;
   }
   #overTextSub{
-    position: absolute; margin-left: auto; margin-right: auto; left: 0; right: 0; 
-    top:350%;
     font-size: 26px;
   }
-
-  #searchBackground2 {
-  	background: rgba(0,0,0,0.5);
-  	position: absolute; margin-left: 40%; margin-right: 40%; left: 0; right: 0; 
-  	top:1000%;
-  }
-
-  #searchField {
-    position: absolute; margin-left: auto; margin-right: auto; left: 0; right: 0;
-    top: 900%;
-    color: #737980;
-    background-color: #fff;
-    -webkit-text-stroke: 1px transparent;
-    max-width: 20%;
-    margin-left: auto;
-    margin-right: auto;
-    border-width: 6px;
-    border-style: solid;
-    border-color: threedface;
-  }
-
   #backImage{
 	position: absolute; margin-left: auto; margin-right: auto; left: 0; right: 0; 
 	width: 50%; 
-	text-align: center; 
+	text-align: center;
 	-webkit-mask-image:-webkit-gradient(linear, left top, left bottom, from(rgba(0,0,0,0)), to(rgba(0,0,0,1)));
 	mask-image: linear-gradient(to bottom, rgba(0,0,0,0), rgba(0,0,0,1));
 	}
-
-
-
-
 .categoriesPick {
-    position: absolute; margin-left: auto; margin-right: auto; left: 0; right: 0;
-    top:52%;
+    padding-top: 0%;
     display: table;
     display: -webkit-flex;
     display: flex;
     flex-flow: row wrap;
+    text-align: center;
+    position: relative;
     -webkit-flex-flow: row wrap;
     justify-content: space-between;
     -webkit-justify-content: space-between;
@@ -76,7 +47,6 @@
     width: 614px;
     list-style: none;
 }
-
 .catIcon {
     -webkit-flex: 0 0 91px;
     flex: 0 0 91px;
@@ -84,7 +54,6 @@
     margin-bottom: 10px;
     background-color: #ffe47a;
 }
-
 .catIcon a {
     display: block;
     width: 100%;
@@ -93,53 +62,60 @@
     text-transform: uppercase;
     text-decoration: none;
 }
-
 .catIconLabel {
     font-size: 9px;
     display: block;
     text-align: center;
     line-height: 8px;
-    padding: 2 8px;
+    padding: 28px;
     color: #000000;
 }
-
 .catIconImage{
     display: block;
     margin: 10px auto;
     font-size: 22px;
     text-align: center;
-
 }
 
-#searchBack{
-    position: absolute; margin-left: auto; margin-right: auto; left: 0; right: 0;
-    top: 800%;
-    left: 35%;
+
+
+
+
+.titleLayout {
+	position: center;
+	padding: 15px;
+	padding-top: 20px;
 }
+  #overCategory{
+    font-size: 26px;
+    text-align: center;
+    position:relative;
+      padding-top: 6%;
+  }
+
+
 
 </style>
 
 
 
+
 <div id="mainCon">
-	<p class="text-center">&nbsp</p>
-	<p id="overText">I use it then I trash it</p>
-	<p id="overTextSub">One man's trash is another man's gold</p>
-	<p> <img src="/static/images/goldenbags.gif" alt="Background Frontpage" id="backImage"> </p>
-
-
-    <div>   
-        <nav class="navbar navbar-dark bg-test" id="searchBack">
-          <form class="form-inline">
-            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" style="width: 330px;">
-            <button class="btn btn-dark my-2 my-sm-0" type="submit">Search</button>
-          </form>
-        </nav>
-    </div>
+	<p> <img src="/static/images/goldenbags.png" alt="Background Frontpage" id="backImage"> </p>
+	<div class="titleLayout">
+		<p id="overText">I use it then I trash it</p>
+		<p id="overTextSub">One man's trash is another man's treasure</p>
+	</div>
   {% if user.is_authenticated %}
   {% else %}
     
   {% endif %}
+</div>
+
+<br/>
+<br/>
+<div id="overCategory">
+    <p>Every category you can imagine</p>
 </div>
 
 <div class="categoriesPick">
@@ -243,7 +219,3 @@
 
 
 {% endblock %}
-
-<br/>
-<br/>
-
