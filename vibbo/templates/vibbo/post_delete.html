@@ -4,15 +4,12 @@
 
 {% block content %}
 {% if user.is_authenticated %}
-<p>.</p>
-<p>.</p>
-<p>.</p>
-<p>.</p>
-<p>.</p>
-<p>.</p>
+<div class="text-center">
 <p>Post successfully deleted</p>
 <p><a href="{% url 'home' %}">Back home</a></p>
 <p><a href="{% url 'all_posts' %}">View all posts</a></p>
 <p><a href="{% url 'newpost' %}">Make a new post</a></p>
+</div>
+
 {% endif %}
 {% endblock %}

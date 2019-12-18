@@ -24,6 +24,7 @@ urlpatterns = [
     path('deletepost/<str:pk>', delete_post, name="delete_post"),
     path('delete/success',  TemplateView.as_view(template_name='vibbo/post_delete.html'), name="post_deleted"),
     path('profile/posts', views.all_posts, name="all_posts"),
+    path('allposts', views.all_users_posts, name="all_users_posts"),
     path(r'post/<str:pk>/', views.get_post_with_comments, name="post_view"),
     path('favourite/<str:pk>', views.favourite_post, name='favourite_post'),
     path('unfavourite/<str:pk>', views.unfavourite_post, name="unfav_post"),

@@ -12,8 +12,11 @@ body {
 
 {% block content %}
 
+{% if request_text %}
         <h1 style="text-align: center; margin-top: 30px">For request {{ request_text }} on {{ request_type }} field found posts: </h1>
+{% else %}
 
+{% endif %}
 <div class="container py-5">
   <div class="row">
     <div class="col-lg-8 mx-auto">
@@ -28,14 +31,20 @@ body {
               <h5 class="mt-0 font-weight-bold mb-2">{{ post.title }}</h5>
               <p class="font-italic text-muted mb-0 small">{{ post.body }}</p>
               <div class="d-flex align-items-center justify-content-between mt-1">
-                <h6 class="font-weight-bold my-2">Posted on {{ post.date }}</h6>
+                <h6 class="font-weight-bold my-2">Posted on {{ post.date }} by {{post.user}}</h6>
               </div>
 			  <div class="d-flex align-items-center justify-content-between mt-1">
                 <h6 class="font-italic">{{ post.city }} ({{ post.location_code }}),{{ post.street }}</h6>
               </div>
             </div>
 			<img src="/static/images/box.png" alt="Generic placeholder image" width="200" class="ml-lg-5 order-1 order-lg-2">
+
           </div>
+               {% if user.is_authenticated %}
+                <a href="{% url 'favourite_post' pk=post.pk %}">Add this post to your favourites</a><br/>
+                {% else %}
+
+                {% endif %}
           <!-- End -->
         </li>
         <!-- End -->
@@ -47,18 +56,5 @@ body {
 {% else %}
     <p>No posts are available.</p>
 {% endif %}
-        <button id="home_button1" class="btn btn-secondary" >Home</button>
-              <script type="text/javascript">
-                  document.getElementById("home_button1").onclick = function () {
-                      location.href = "{% url 'home' %}";
-                  };
-              </script>
-
-        <button id="search_posts_button" class="btn btn-secondary" >Back to search</button>
-              <script type="text/javascript">
-                  document.getElementById("search_posts_button").onclick = function () {
-                      location.href = "{% url 'search_posts' %}";
-                  };
-              </script>
 
 {% endblock %}

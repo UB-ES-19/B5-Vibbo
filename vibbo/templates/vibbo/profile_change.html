@@ -56,7 +56,7 @@
 		<div id="leftUp">
 			<img src="/static/images/defaultProfile.jpg" alt="Default Profile Picture" style="text-align: center;">
 			<p> {{user.profile.first_name}} {{user.profile.last_name}} </p>
-			<p style="font-size: 11px"> Since [sign up date] </p>
+			<p style="font-size: 11px"> Since {{user.date_joined}} </p>
 		</div>
 
 		<table style="width:100%" class="linksTable">
@@ -64,10 +64,10 @@
 				<th class="linksTh">Messages</th>
 			</tr>
 			<tr class="linksTr">
-				<th class="linksTh">Favs</th>
+				<th class="linksTh"><a href="{% url 'change' %}" style="color: #00819e;">Edit profile</a></th>
 			</tr>
 			<tr class="linksTr">
-				<th class="linksTh"><a href="{% url 'change' %}" style="color: #00819e;">Edit profile</a></th>
+				<th class="linksTh"><a href="{% url 'login_history' %}" style="color: #00819e;">Login History</a></th>
 			</tr>
 		</table>
 

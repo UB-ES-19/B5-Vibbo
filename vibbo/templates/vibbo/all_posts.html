@@ -31,6 +31,7 @@ body {
             </div>
 			<img src="/static/images/box.png" alt="Generic placeholder image" width="200" class="ml-lg-5 order-1 order-lg-2">
           </div>
+          <a href="{% url 'unfav_post' pk=post.pk %}">Favourite this post</a><br/>
           <!-- End -->
         </li>
         <!-- End -->
@@ -42,12 +43,4 @@ body {
 {% else %}
     <p>No posts are available.</p>
 {% endif %}
-    <div class="text-center">
-        <button id="home_button1" class="btn btn-secondary">Home</button>
-              <script type="text/javascript">
-                  document.getElementById("home_button1").onclick = function () {
-                      location.href = "{% url 'home' %}";
-                  };
-              </script>
-     </div>
 {% endblock %}
