@@ -12,8 +12,11 @@ body {
 
 {% block content %}
 
+{% if request_text %}
         <h1 style="text-align: center; margin-top: 30px">For request {{ request_text }} on {{ request_type }} field found posts: </h1>
+{% else %}
 
+{% endif %}
 <div class="container py-5">
   <div class="row">
     <div class="col-lg-8 mx-auto">
