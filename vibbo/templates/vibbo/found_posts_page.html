@@ -56,18 +56,5 @@ body {
 {% else %}
     <p>No posts are available.</p>
 {% endif %}
-        <button id="home_button1" class="btn btn-secondary" >Home</button>
-              <script type="text/javascript">
-                  document.getElementById("home_button1").onclick = function () {
-                      location.href = "{% url 'home' %}";
-                  };
-              </script>
-
-        <button id="search_posts_button" class="btn btn-secondary" >Back to search</button>
-              <script type="text/javascript">
-                  document.getElementById("search_posts_button").onclick = function () {
-                      location.href = "{% url 'search_posts' %}";
-                  };
-              </script>
 
 {% endblock %}
