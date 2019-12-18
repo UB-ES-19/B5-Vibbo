@@ -193,12 +193,10 @@ def allUsers(request, pk=None):
             'users': first_names,
         }
     else:
-        for name in first_names:
-            if name == pk:
-                name_user_searched = name
+        users_searched = User.objects.filter(username__contains=pk)
         context = {
             'users': first_names,
-            'user_searched': name_user_searched,
+            'users_searched': users_searched,
         }
 
     return render(request, template_name, context)

@@ -200,9 +200,10 @@ body{margin-top:20px;}
                         </thead>
                             <tbody>
                             <tr>
+                                    {% for user_searched in users_searched %}
                                     <td>
                                         <img src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="">
-                                        <a href="#" class="user-link">{{ user_searched }}</a>
+                                        <a href="{% url 'profile' pk=user_searched.pk %}" class="user-link">{{ user_searched.username }}</a>
                                     </td>
                                     <td>
                                         2013/08/08
@@ -211,15 +212,16 @@ body{margin-top:20px;}
                                         <span class="label label-default">Inactive</span>
                                     </td>
                                     <td>
-                                        <a href="#">{{ user_searched }}@goldentrashcan.com</a>
+                                        <a href="#">{{ user_searched.username }}@goldentrashcan.com</a>
                                     </td>
                                     <td style="width: 20%;">
-                                        <a href="#" class="table-link">
+                                        <a href="{% url 'follow_user' id=user_searched.id %}" class="table-link">
                                             <span class="fa-stack">
                                                 <button id="follow_searched" class="btn btn-secondary" >Follow</button>
                                             </span>
                                         </a>
                                     </td>
+                                    {% endfor %}
                                 </tr>
                             </tbody>
                         </table>
