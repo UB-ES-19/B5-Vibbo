@@ -215,6 +215,15 @@ def all_posts(request):
     return render(request, template_name, context)
 
 
+def all_users_posts(request):
+    template_name = 'vibbo/found_posts_page.html'
+    posts = Post.objects.all()
+    context = {
+        'posts': posts,
+    }
+    return render(request, template_name, context)
+
+
 def found_posts(request, search_type, search_string):
     template_name = 'vibbo/found_posts_page.html'
     posts = []
