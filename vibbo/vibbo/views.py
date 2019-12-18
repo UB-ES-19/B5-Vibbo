@@ -252,8 +252,8 @@ def delete_post(request, pk, **kwargs):
 
 
 def followUser(request, id):
-    from_user = get_object_or_404(User, id=id)
-    from_user.profile.follows.add(request.user.profile)
+    user_to_follow = get_object_or_404(User, id=id)
+    request.user.profile.follows.add(user_to_follow.profile)
     return HttpResponseRedirect(f"/vibbo/home/allusers")
 
 
@@ -264,13 +264,25 @@ def unfollowUser(request, id):
 
 
 def getAllMyFollowsPosts(request):
-    all_following_posts = Post.objects.filter(user=request.user)
+
+    all_following_posts = []
+
+    for prof in request.user.profile.follows.all():
+        us = User.objects.filter(profile=prof)
+        # print(us[0])
+        posts = Post.objects.filter(user=us[0])
+        posts = list(posts)
+
+        print(posts)
+        all_following_posts += posts
+
     template_name = 'vibbo/all_posts.html'
 
-    for following in request.user.profile.follows.all():
-        posts = Post.objects.filter(user=following).order_by('-date')
-        for post in posts:
-            all_following_posts.append(post)
+    # print(all_following_posts)
+    # for following in request.user.profile.follows.all():
+    #     posts = Post.objects.filter(user=following).order_by('-date')
+    #     for post in posts:
+    #         all_following_posts.append(post)
 
     context = {
         'user': request.user,
