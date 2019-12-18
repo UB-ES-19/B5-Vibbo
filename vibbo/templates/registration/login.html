@@ -14,7 +14,8 @@
   {{ form.as_p }}
    <button type="submit">Login</button>
 </form>
-
+<br/>
+<div class="text-center">
 <h2>Not registered ? </h2>
 <button id="signupButton" class="btn btn-secondary" >Sign up now</button>
 <script type="text/javascript">
@@ -22,4 +23,5 @@
         location.href = "{% url 'signup' %}";
     };
 </script>
+</div>
 {% endblock %}

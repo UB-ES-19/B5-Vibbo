@@ -53,15 +53,12 @@
 		<div id="leftUp">
 			<img src="/static/images/defaultProfile.jpg" alt="Default Profile Picture" style="text-align: center;">
 			<p> {{user.profile.first_name}} {{user.profile.last_name}} </p>
-			<p style="font-size: 11px"> Since [sign up date] </p>
+			<p style="font-size: 11px"> Since {{user.date_joined}} </p>
 		</div>
 
 		<table style="width:100%" class="linksTable">
 			<tr class="linksTr">
 				<th class="linksTh">Messages</th>
-			</tr>
-			<tr class="linksTr">
-				<th class="linksTh">Favs</th>
 			</tr>
 			<tr class="linksTr">
 				<th class="linksTh"><a href="{% url 'change' %}" style="color: #00819e;">Edit profile</a></th>
@@ -92,14 +89,11 @@
 
 			</tr>
 		</table>
-		<p style="padding-top: 50px; padding-left: 200px;"> You have nothing for sale </p>
 
-<!--
+
 	<p> You bio is: </p><p> {{user.profile.bio}} </p>
-		<p> You location is: </p> <p> {{user.profile.street}} {{user.profile.city}} {{user.profile.location_code}} </p>
-		<p><a href="{% url 'home' %}">Back home</a></p>
--->
-	
+		<br/>
+		<p> You location is:   &nbsp; {{user.profile.city}}  {{user.profile.location_code}},   &nbsp; {{user.profile.street}} </p>
 	</div>
 </div>
 
