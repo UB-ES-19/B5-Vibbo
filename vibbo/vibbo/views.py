@@ -299,11 +299,11 @@ def favourite_post(request, pk):
 
     fav.save()
 
-    return HttpResponseRedirect(f"/vibbo/post/{pk}/")
+    return HttpResponseRedirect(f"/vibbo/favourites")
 
 
 def unfavourite_post(request, pk):
-    fav = Favourites.objects.get(post_ref=Post.objects.get(pk=pk), user_ref=request.user)
+    fav = Favourites.objects.filter(post_ref=Post.objects.get(pk=pk), user_ref=request.user)[0]
     fav.delete()
     return HttpResponseRedirect(f"/vibbo/favourites")
 
