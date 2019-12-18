@@ -8,14 +8,19 @@ body {
   color: #aaa;
 }
 </style>
-{% block title %}All users{% endblock %}
+{% block title %}Found posts{% endblock %}
 
 {% block content %}
 
-    {% if user %}
-        <h1 style="text-align: center; margin-top: 30px">{{ user }}'s posts</h1>
-<!--        <h1 style="text-align: center">All Users</h1>-->
-        {% for post in posts %}
+        <h1 style="text-align: center; margin-top: 30px">For request {{ request_text }} on {{ request_type }} field found posts: </h1>
+
+<div class="container py-5">
+  <div class="row">
+    <div class="col-lg-8 mx-auto">
+      <!-- List group-->
+      <ul class="list-group shadow">
+{% if posts %}
+     {% for post in posts %}
            <li class="list-group-item">
           <!-- Custom content-->
           <div class="media align-items-lg-center flex-column flex-lg-row p-3">
@@ -42,15 +47,22 @@ body {
 {% else %}
     <p>No posts are available.</p>
 {% endif %}
-    <div class="text-center">
-        <button id="home_button1" class="btn btn-secondary">Home</button>
+        <button id="home_button1" class="btn btn-secondary" >Home</button>
               <script type="text/javascript">
                   document.getElementById("home_button1").onclick = function () {
                       location.href = "{% url 'home' %}";
                   };
               </script>
-     </div>
+
+        <button id="search_posts_button" class="btn btn-secondary" >Back to search</button>
+              <script type="text/javascript">
+                  document.getElementById("search_posts_button").onclick = function () {
+                      location.href = "{% url 'search_posts' %}";
+                  };
+              </script>
+
 {% endblock %}
+
 
 <br/>
 <br/>

@@ -1,8 +1,8 @@
 from django.shortcuts import render, get_object_or_404
 from django.views.generic import DetailView, FormView
 from django.db import models
-from .models import Profile, Post
-from .forms import ProfileForm, PostForm
+from .models import Profile, Post, Comment, Favourites
+from .forms import ProfileForm, PostForm, CommentForm
 from django.contrib.auth.models import User
 from django.http import HttpResponseRedirect
 
@@ -13,7 +13,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.urls import reverse_lazy
 from django.views import generic
 
-import datetime
+from django.utils.timezone import now
 
 
 class SignUp(generic.CreateView):
@@ -27,9 +27,13 @@ class PostSubmission(FormView):
     form_class = PostForm
 
     def get_initial(self):
+        user_profile = Profile.objects.filter(user=self.request.user)[0]
         return {
-            'title': "",
-            'body': ""
+            'title': "Item for sale",
+            'body': "Item description",
+            'street': user_profile.street,
+            'city': user_profile.city,
+            'location_code': user_profile.location_code,
         }
 
     def get_queryset(self):
@@ -42,10 +46,13 @@ class PostSubmission(FormView):
         post.title = data['title']
         post.body = data['body']
 
-        post.date = datetime.datetime.now()
+        post.street = data['street']
+        post.city = data['city']
+        post.location_code = data['location_code']
+
+        post.date = now()
 
         post.save()
-        print(post)
         return HttpResponseRedirect(f"/vibbo/post/{post.pk}/")
 
 
@@ -56,7 +63,10 @@ class ChangePostView(FormView):
     def get_initial(self):
         return {
             'title': self.get_queryset().title,
-            'body': self.get_queryset().body
+            'body': self.get_queryset().body,
+            'street': self.get_queryset().street,
+            'city': self.get_queryset().city,
+            'location_code': self.get_queryset().location_code,
         }
 
     def get_queryset(self):
@@ -70,10 +80,13 @@ class ChangePostView(FormView):
         post.title = data['title']
         post.body = data['body']
 
-        post.date = datetime.datetime.now()
+        post.street = data['street']
+        post.city = data['city']
+        post.location_code = data['location_code']
+
+        post.date = now()
 
         post.save()
-        print(post)
         return HttpResponseRedirect(f"/vibbo/post/{post.pk}/")
 
 
@@ -121,9 +134,47 @@ class DisplayDetailView(DetailView):
     model = Profile
 
 
-class PostView(DetailView):
-    template_name = "vibbo/post_page.html"
-    model = Post
+def get_post_with_comments(request, pk=None):
+    template_name = 'vibbo/post_page.html'
+
+    if pk is None:
+        pass
+        # resolve error
+
+    form = None
+    if request.method == 'POST':
+        # create a form instance and populate it with data from the request:
+        form = CommentForm(request.POST)
+        # check whether it's valid:
+        if form.is_valid():
+            # process the data in form.cleaned_data as required
+            # ...
+            # redirect to a new URL:
+            comment = Comment()
+            comment.user = request.user
+            comment.post_reference = Post.objects.get(pk=pk)
+
+            comment.comment_body = form.cleaned_data['comment_body']
+            comment.date = now()
+
+            comment.save()
+
+            return HttpResponseRedirect(f"/vibbo/post/{pk}/")
+
+    # if a GET (or any other method) we'll create a blank form
+    else:
+        form = CommentForm()
+
+    post = Post.objects.get(pk=pk)
+    all_post_comments = Comment.objects.filter(post_reference=post)
+
+    context = {
+        'post': post,
+        'comments': all_post_comments,
+        'form': form
+    }
+
+    return render(request, template_name, context)
 
 
 def allUsers(request, pk=None):
@@ -164,6 +215,27 @@ def all_posts(request):
     return render(request, template_name, context)
 
 
+def found_posts(request, search_type, search_string):
+    template_name = 'vibbo/found_posts_page.html'
+    posts = []
+
+    if search_type == "street":
+        posts = Post.objects.filter(street__contains=search_string).order_by('-date')
+    elif search_type == "city":
+        posts = Post.objects.filter(city__contains=search_string).order_by('-date')
+    elif search_type == "locationcode":
+        posts = Post.objects.filter(location_code__contains=search_string).order_by('-date')
+    elif search_type == "name":
+        posts = Post.objects.filter(title__contains=search_string).order_by('-date')
+
+    context = {
+        'request_type': search_type,
+        'request_text': search_string,
+        'posts': posts,
+    }
+    return render(request, template_name, context)
+
+
 def delete_post(request, pk, **kwargs):
     post = Post.objects.get(pk=pk)
     post.delete()
@@ -197,4 +269,34 @@ def getAllMyFollowsPosts(request):
         'posts': all_following_posts
     }
 
+    return render(request, template_name, context)
+
+
+def favourite_post(request, pk):
+    fav = Favourites()
+    fav.user_ref = request.user
+    fav.post_ref = Post.objects.get(pk=pk)
+
+    fav.save()
+
+    return HttpResponseRedirect(f"/vibbo/post/{pk}/")
+
+
+def unfavourite_post(request, pk):
+    fav = Favourites.objects.get(post_ref=Post.objects.get(pk=pk), user_ref=request.user)
+    fav.delete()
+    return HttpResponseRedirect(f"/vibbo/favourites")
+
+
+def get_all_favourites(request):
+    template_name = 'vibbo/all_fav_posts.html'
+    favs = Favourites.objects.filter(user_ref=request.user)
+
+    posts = [fav.post_ref for fav in favs]
+    if posts:
+        context = {
+            'posts': posts,
+        }
+    else:
+        context = {}
     return render(request, template_name, context)

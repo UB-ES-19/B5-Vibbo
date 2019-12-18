@@ -28,9 +28,23 @@ class PostForm(forms.ModelForm):
     title = forms.CharField()
     body = forms.CharField()
 
+    street = forms.CharField()
+    city = forms.CharField()
+    location_code = forms.IntegerField()
+
     class Meta:
         model = User
         fields = (
             'title',
             'body'
+        )
+
+
+class CommentForm(forms.ModelForm):
+    comment_body = forms.CharField()
+
+    class Meta:
+        model = User
+        fields = (
+            'comment_body',
         )

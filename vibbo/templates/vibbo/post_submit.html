@@ -2,7 +2,8 @@
 {% block title %}Add new post{% endblock %}
 
 {% block content %}
-  <h2>Add/edit post</h2>
+<br/>
+  <h2 class="text-center">Add/edit post</h2>
   <form method="post">
     {% csrf_token %}
     {{ form.as_p }}

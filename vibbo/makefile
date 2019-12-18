@@ -3,3 +3,4 @@ run:
 migrate:
 	python3.7 manage.py makemigrations
 	python3.7 manage.py migrate
+	python3.7 manage.py migrate --run-syncdb
