@@ -35,4 +35,6 @@ urlpatterns = [
 
     path('searchposts', TemplateView.as_view(template_name='vibbo/search_posts_page.html'), name="search_posts"),
     path('foundposts/<str:search_type>/<str:search_string>', views.found_posts, name="found_posts"),
+
+    path('searchuser', TemplateView.as_view(template_name='vibbo/search_user_page.html'), name="search_user"),
 ]
